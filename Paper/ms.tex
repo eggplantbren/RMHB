@@ -8,6 +8,10 @@
 \usepackage{xspace}
 \usepackage{bbm}
 
+% Bold symbols
+\renewcommand{\btheta}{\boldsymbol{\theta}}
+\newcommand{\bx}{\boldsymbol{x}}
+
 % \onecolumn
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -43,6 +47,36 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Introduction}
+
+
+
+
+\section{Combining Inferences About Multiple Objects}
+Consider a sample of $N$ objects, each of which has parameters $\theta_i$.
+The inference about object $i$ is described by a posterior distribution
+\begin{eqnarray}
+p(\theta_i | x_i) \propto \pi(\theta_i)p(x_i | \theta_i)\label{eq:individual}
+\end{eqnarray}
+We shall assume that this inference was carried out individually
+on each object $i$, all using a common prior $\pi(\theta_i)$. Rather than
+analysing all objects together, which can be very computationally expensive,
+we can use the posterior distributions from Equation~\ref{eq:individual}
+to reconstruct the results that would be obtained if we did analyse all
+objects together.
+
+In a hierarchical model, the posterior distribution for
+$\btheta = \{\theta_1, ..., \theta_N\}$ and some hyperparameters $\alpha$
+given the data 
+$\bx = \{x_1, ..., x_N\}$
+should actually be
+\begin{eqnarray}
+p(\alpha, \btheta | \bx) &\propto&
+p(\alpha)p(\btheta|\alpha)p(\bx | \btheta, \alpha)\\
+&=& p(\alpha)\prod_{i=1}^N f(\theta_i|\alpha)p(x_i | \theta_i)
+\end{eqnarray}
+
+
+
 
 \section*{Acknowledgements}
 
