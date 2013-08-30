@@ -6,7 +6,7 @@
 \usepackage{graphicx}
 \usepackage{amsmath}
 \usepackage{xspace}
-\usepackage{bbm}
+\usepackage{dsfont}
 
 % Bold symbols
 \renewcommand{\btheta}{\boldsymbol{\theta}}
@@ -79,6 +79,22 @@ p(\alpha, \btheta | \bx) &\propto&
 p(\alpha)p(\btheta|\alpha)p(\bx | \btheta, \alpha)\\
 &=& p(\alpha)\prod_{i=1}^N f(\theta_i|\alpha)p(x_i | \theta_i)
 \end{eqnarray}
+The marginal posterior distribution for the hyperparameters $\alpha$ is
+
+\begin{eqnarray}
+p(\alpha | \bx) &=&
+\int p(\alpha, \btheta|\bx) \, d\btheta\\
+&\propto& p(\alpha)\int \prod_{i=1}^N f(\theta_i|\alpha)p(x_i | \theta_i) d^N\theta\\
+&\propto& p(\alpha) \prod_{i=1}^N \int f(\theta_i|\alpha)p(x_i | \theta_i) d\theta_i\\
+&\propto& p(\alpha) \prod_{i=1}^N \int \frac{f(\theta_i|\alpha)}{\pi(\theta)}p(x_i | \theta_i) \pi(\theta_i)d\theta_i\\
+&\propto& p(\alpha) \prod_{i=1}^N \mathds{E}\left[\frac{f(\theta_i|\alpha)}{\pi(\theta)}p(x_i | \theta_i)\right]
+\end{eqnarray}
+where the expectation is taken with respect to the individual object posterior
+of Equation~\ref{eq:individual}. This result enables us to reconstruct the
+posterior distribution for the hyperparameters even though the individual object
+inferences were made without the hierarchical structure in the prior.
+
+
 
 \section{The Inference for a Single Object}
 The posterior distribution for the lag of a single object $i$ is obtained
