@@ -66,7 +66,8 @@ for the purposes of this letter. We list them here for completeness. Firstly,
 the mean lag $\tau$ is not equal to $c$ times the mean radius of the BLR
 distribution. Secondly, the mean lag $\tau$ is also not what the common
 cross-correlation techniques measures, except in the case of very narrow
-transfer functions.
+transfer functions. Some of these difficulties have been addressed in other
+contributions by \citet{pancoast} and \citet{arp151}.
 
 If the continuum light curve is described by a function $y(t)$, then the line
 light curve $l(t)$ is given by
@@ -155,7 +156,9 @@ have been studied extensively for AGN variability
 \citep[e.g.][]{2009ApJ...698..895K, 2011ApJ...735...80Z, 2013ApJ...765..106Z}.
 Note that inferring $\bar{\tau}$ from the data requires that we
 marginalise over an infinite number of nuisance parameters describing the
-behaviour of $y(t)$ at unobserved times. This marginalisation can be done
+behaviour of $y(t)$ at unobserved times \citep{pancoast}.
+
+This marginalisation can be done
 either analytically or inside MCMC. We use the latter approach. We discretise
 time using ten time bins per day, and have a discrete continuum light curve
 $\mathbf{y} = \{y_1, ..., y_n\}$
@@ -185,6 +188,9 @@ cross-correlation techniques.
 \bibitem[\protect\citeauthoryear{Bovy Jo, Hogg, 
 \& Roweis}{2011}]{extreme_deconvolution} Bovy Jo, Hogg D.~W., Roweis S.~T., 2011, AnApS, 5, 1657 
 
+\bibitem[\protect\citeauthoryear{Brewer et al.}{2011}]{arp151} 
+Brewer B.~J., et al., 2011, ApJ, 733, L33 
+
 \bibitem[\protect\citeauthoryear{Brewer, P{\'a}rtay,
 \& Cs{\'a}nyi}{2011}]{dnest} Brewer B.~J., P{\'a}rtay L.~B.,
 Cs{\'a}nyi G., 2011, Statistics and Computing, 21, 4, 649-656. arXiv:0912.2380
@@ -210,6 +216,9 @@ T.~J., 2012, arXiv, arXiv:1208.3036
 
 \bibitem[\protect\citeauthoryear{Hoffman 
 \& Gelman}{2011}]{nuts} Hoffman M.~D., Gelman A., 2011, arXiv, arXiv:1111.4246 
+
+\bibitem[\protect\citeauthoryear{Pancoast, Brewer, 
+\& Treu}{2011}]{pancoast} Pancoast A., Brewer B.~J., Treu T., 2011, ApJ, 730, 139 
 
 \bibitem[\protect\citeauthoryear{Zu et al.}{2013}]{2013ApJ...765..106Z} Zu 
 Y., Kochanek C.~S., Koz{\l}owski S., Udalski A., 2013, ApJ, 765, 106 
