@@ -20,7 +20,7 @@
     
 \author[Brewer and Elliott]{%
   Brendon~J.~Brewer$^{1}$\thanks{bj.brewer@auckland.ac.nz},
-  Tom Elliott$^{1}$
+  Tom M. Elliott$^{1}$
   \medskip\\
   $^1$Department of Statistics, The University of Auckland, Private Bag 92019, Auckland 1142, New Zealand}
 
@@ -37,7 +37,14 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{abstract}
-
+Reverberation mapping (RM) is an important technique in studies of active
+galactic nuclei (AGN). The key idea of RM is to measure the time lag $\tau$
+between variations in the continuum emission from the accretion disc
+and subsequent response of the broad line region (BLR). The measurement of
+$\tau$ is typically used to estimate the physical size of the BLR and is
+combined with other measurements to estimate the black hole mass $M_{\rm BH}$.
+A major difficulty with RM campaigns is the large amount of data needed to
+measure $\tau$.
 \end{abstract}
 
 \begin{keywords}
@@ -49,12 +56,26 @@
 \section{Introduction}
 
 
+There are deeper issues at play in reverberation mapping, for instance, the
+mean lag $\tau$ is not the same as the mean radius of the BLR distribution,
+and the mean lag $\tau$ is also not what the common cross-correlation
+techniques measures. In this letter we will ignore these complications.
+
+
 Recently, \citet{2012MNRAS.427.2701F, 2013MNRAS.434L..16F} introduced an
 innovative approach to reverberation mapping where the results from multiple
 AGN can be combined to yield inferences about the entire sample of AGN,
-despite the fact that the constraints on any individual AGN are poor.
+despite the fact that the constraints on any individual AGN are poor. Rather
+than accurately measuring $\tau$ in a single object, it is possible to roughly
+measure $\tau$ for a large number of objects, and to infer properties about
+the distribution of $\tau$ values in the sample of objects (and hence in
+a broader population, if the sample can be considered representative).
 
-
+We implement this idea with a Bayesian hierarchical model
+\citep{2012arXiv1208.3036L}.
+These models are becoming increasingly common in astrophysics and have been
+used in a variety of different fields
+\citep[e.g.][]{extreme_deconvolution, loredo, kelly}.
 
 \section{Combining Inferences About Multiple Objects}
 Consider a sample of $N$ objects, each of which has parameters $\theta_i$.
@@ -106,6 +127,11 @@ blah
 
 Note that this is already not the cross-correlation.
 
+The prior for the underlying time variation of the continuum emission is
+a continuous autoregressive process of order 1, or a CAR(1) model. These models
+have been studied extensively for AGN variability
+\citep[e.g.][]{2009ApJ...698..895K, 2011ApJ...735...80Z, 2013ApJ...765..106Z}.
+
 \section{Demonstration on Simulated Data}
 
 
@@ -115,12 +141,36 @@ Note that this is already not the cross-correlation.
 
 
 \begin{thebibliography}{99}
+
+\bibitem[\protect\citeauthoryear{Bovy Jo, Hogg, 
+\& Roweis}{2011}]{extreme_deconvolution} Bovy Jo, Hogg D.~W., Roweis S.~T., 2011, AnApS, 5, 1657 
+
 \bibitem[\protect\citeauthoryear{Fine et al.}{2013}]{2013MNRAS.434L..16F} 
 Fine S., et al., 2013, MNRAS, 434, L16 
 
-
 \bibitem[\protect\citeauthoryear{Fine et al.}{2012}]{2012MNRAS.427.2701F} 
 Fine S., et al., 2012, MNRAS, 427, 2701 
+
+\bibitem[\protect\citeauthoryear{Kelly}{2007}]{kelly} Kelly 
+B.~C., 2007, ApJ, 665, 1489 
+
+\bibitem[\protect\citeauthoryear{Kelly, Bechtold, 
+\& Siemiginowska}{2009}]{2009ApJ...698..895K} Kelly B.~C., Bechtold J.,
+Siemiginowska A., 2009, ApJ, 698, 895 
+
+\bibitem[\protect\citeauthoryear{Loredo}{2004}]{loredo} Loredo 
+T.~J., 2004, AIP Conference Series, 735, 195 
+
+\bibitem[\protect\citeauthoryear{Loredo}{2012}]{2012arXiv1208.3036L} Loredo 
+T.~J., 2012, arXiv, arXiv:1208.3036 
+
+\bibitem[\protect\citeauthoryear{Zu et al.}{2013}]{2013ApJ...765..106Z} Zu 
+Y., Kochanek C.~S., Koz{\l}owski S., Udalski A., 2013, ApJ, 765, 106 
+
+\bibitem[\protect\citeauthoryear{Zu, Kochanek, 
+\& Peterson}{2011}]{2011ApJ...735...80Z} Zu Y., Kochanek C.~S., Peterson B.~M., 2011, ApJ, 735, 80 
+
+
 
 \end{thebibliography}
 
