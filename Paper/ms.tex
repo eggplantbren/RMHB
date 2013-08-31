@@ -168,6 +168,13 @@ y_i = \mu + a\left(y_{i-1} - \mu\right) + \beta n_i
 for $i \geq 2$, where the prior for the $\{n_i\}$ is independent standard
 normal distributions. This is the discrete AR(1) model from time series theory.
 
+For the likelihood (or sampling distribution, really the prior for the data
+given the parameters) we made the conventional gaussian assumption:
+\begin{eqnarray}
+Y_i &\sim& \mathcal{N}\left(y(t_{l_i}), \sigma_{y_i}^2\right)\\
+L_i &\sim& \mathcal{N}\left(l(t_{l_i}), \sigma_{l_i}^2\right)
+\end{eqnarray}
+
 For the MCMC we used STAN \citep{nuts} and DNest \citep{dnest}.
 
 
