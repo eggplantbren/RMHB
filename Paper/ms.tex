@@ -61,11 +61,23 @@ cross-correlation technique. We find ...
 \section{Introduction}
 
 
-There are deeper issues at play in reverberation mapping, for instance, the
-mean lag $\tau$ is not the same as the mean radius of the BLR distribution,
-and the mean lag $\tau$ is also not what the common cross-correlation
-techniques measures. In this letter we will ignore these complications.
+There are deeper issues at play in reverberation mapping, that we will ignore
+for the purposes of this letter. We list them here for completeness. Firstly,
+the mean lag $\tau$ is not equal to $c$ times the mean radius of the BLR
+distribution. Secondly, the mean lag $\tau$ is also not what the common
+cross-correlation techniques measures, except in the case of very narrow
+transfer functions.
 
+If the continuum light curve is described by a function $y(t)$, then the line
+light curve $l(t)$ is given by
+\begin{eqnarray}
+l(t) &=& A \int_\tau \Psi(\tau)\left[y(t - \tau) - B\right] \, d\tau
+\end{eqnarray}
+where $\Psi(\tau)$ is the transfer function (assumed to be normalised),
+and $A$ and $B$ are response
+coefficients. The idea of reverberation mapping is to use noisy measurements
+of $y(t)$ and $l(t)$ to infer the transfer function $\Psi(\tau)$ or a summary
+of it such as the mean lag $\bar{\tau} = \int \tau\Psi(\tau) \, d\tau$.
 
 Recently, \citet{2012MNRAS.427.2701F, 2013MNRAS.434L..16F} introduced an
 innovative approach to reverberation mapping where the results from multiple
@@ -122,22 +134,43 @@ inferences were made without the hierarchical structure in the prior.
 
 
 
-\section{The Inference for a Single Object}
-The posterior distribution for the lag of a single object $i$ is obtained
-by fitting the following model.
-
+\section{The Single Object Model}
+The posterior distribution for the mean lag $\bar{\tau}$ of a single object
+$i$ is obtained
+by fitting the following model. We assume, for simplicity, that
+the transfer function is uniform
+between limits $a$ and $b$, where $b > a$:
 \begin{eqnarray}
-blah
+\Psi(\tau) &=& \left\{
+\begin{array}{lr}
+\frac{1}{b-a}, & \tau \in [a,b]\\
+0, & \textnormal{otherwise}s
+\end{array}\right.
 \end{eqnarray}
-
-Note that this is already not the cross-correlation.
+and our goal is to measure the mean lag $\bar{\tau} = \frac{1}{2}(b-a)$.
 
 The prior for the underlying time variation of the continuum emission is
 a continuous autoregressive process of order 1, or a CAR(1) model. These models
 have been studied extensively for AGN variability
 \citep[e.g.][]{2009ApJ...698..895K, 2011ApJ...735...80Z, 2013ApJ...765..106Z}.
+Note that inferring $\bar{\tau}$ from the data requires that we
+marginalise over an infinite number of nuisance parameters describing the
+behaviour of $y(t)$ at unobserved times. This marginalisation can be done
+either analytically or inside MCMC. We use the latter approach. We discretise
+time using ten time bins per day, and have a discrete continuum light curve
+$\mathbf{y} = \{y_1, ..., y_n\}$
+\begin{eqnarray}
+y_i = \mu + a\left(y_{i-1} - \mu\right) + \beta n_i
+\end{eqnarray}
+for $i \geq 2$, where the prior for the $\{n_i\}$ is independent standard
+normal distributions. This is the discrete AR(1) model from time series theory.
 
 For the MCMC we used STAN \citep{nuts} and DNest \citep{dnest}.
+
+
+Note the single-object model is already an improvement over standard
+cross-correlation techniques.
+
 
 \section{Demonstration on Simulated Data}
 
