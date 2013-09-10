@@ -147,7 +147,7 @@ void TimeSeriesModel::calculate_y()
 	{
 		double tot = 0.;
 		int num = 0;
-		for(int j=(Data::get_instance().get_t2(i) - b); j<(Data::get_instance().get_t2(i) - a); j++)
+		for(int j=(Data::get_instance().get_t2(i) - b); j<(Data::get_instance().get_t2(i) - a + 1); j++)
 		{
 			if(j >= 0 && j < (int)y.size())
 			{
