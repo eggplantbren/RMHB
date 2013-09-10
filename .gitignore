@@ -2,4 +2,10 @@
 *.log
 *.dvi
 ms.pdf
+main
+sample.txt
+posterior_sample.txt
+weights.txt
+sample_info.txt
+levels.txt
 
