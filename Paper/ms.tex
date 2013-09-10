@@ -80,10 +80,10 @@ contributions by \citet{pancoast} and \citet{arp151}.
 If the continuum light curve is described by a function $y(t)$, then the line
 light curve $l(t)$ is given by
 \begin{eqnarray}
-l(t) &=& A \int_\tau \Psi(\tau)\left[y(t - \tau) - C\right] \, d\tau
+l(t) &=& A \int_\tau \Psi(\tau)\left[y(t - \tau) + C\right] \, d\tau
 \end{eqnarray}
 where $\Psi(\tau)$ is the transfer function (assumed to be normalised),
-and $A$ and $B$ are response
+and $A$ and $C$ are response
 coefficients. The idea of reverberation mapping is to use noisy measurements
 of $y(t)$ and $l(t)$ to infer the transfer function $\Psi(\tau)$ or a summary
 of it such as the mean lag $\bar{\tau} = \int \tau\Psi(\tau) \, d\tau$.
