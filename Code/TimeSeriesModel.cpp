@@ -41,6 +41,9 @@ void TimeSeriesModel::fromPrior()
 	max_lag = exp(log(1E-3) + log(1E3)*randomU());
 	K = randomU();
 
+	A = exp(log(1E-3) + log(1E6)*randomU());
+	C = 100.*tan(M_PI*(randomU() - 0.5));	
+
 	for(size_t i=0; i<n.size(); i++)
 		n[i] = randn();
 	calculate_y();
@@ -50,7 +53,7 @@ double TimeSeriesModel::perturb()
 {
 	double logH = 0.;
 
-	int which = randInt(5);
+	int which = randInt(7);
 	if(which == 0)
 	{
 		L = log(L);
@@ -85,17 +88,37 @@ double TimeSeriesModel::perturb()
 		K += pow(10., 1.5 - 6.*randomU())*randn();
 		K = mod(K, 1.);
 	}
+	else if(which == 5)
+	{
+		A = log(A);
+		A += log(1E6)*pow(10., 1.5 - 6.*randomU())*randn();
+		A = mod(A - log(1E-3), log(1E6)) + log(1E-3);
+		A = exp(A);
+	}
+	else if(which == 6)
+	{
+		C = atan(C/100.)/M_PI + 0.5;
+		C += pow(10., 1.5 - 6.*randomU())*randn();
+		C = mod(C, 1.);
+		C = 100.*tan(M_PI*(C - 0.5));
+	}
 
 	// Always do this
 	double chance = pow(10., 0.5 - 4.*randomU());
 	double scale = pow(10., 1.5 - 6.*randomU());
+	bool full = randomU() <= 0.3;
 	for(size_t i=0; i<n.size(); i++)
 	{
 		if(randomU() <= chance)
 		{
-			logH -= -0.5*pow(n[i], 2);
-			n[i] += scale*randn();
-			logH += -0.5*pow(n[i], 2);
+			if(full)
+				n[i] = randn();
+			else
+			{
+				logH -= -0.5*pow(n[i], 2);
+				n[i] += scale*randn();
+				logH += -0.5*pow(n[i], 2);
+			}
 		}
 	}
 
