@@ -26,15 +26,17 @@
 class TimeSeriesModel:public DNest3::Model
 {
 	private:
-		double alpha;
+		// AR(1) stuff
+		double L;
 		double beta;
 		double mu;
+
 		// Coefficients
-		double A, B;
+		double A, C;
 		std::vector<double> n, y, y_response;
 
 		// Lag stuff
-		double max_lag, K, min_lag;
+		double max_lag, K;
 
 	public:
 		TimeSeriesModel();
