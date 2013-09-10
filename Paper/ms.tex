@@ -59,7 +59,15 @@ cross-correlation technique. We find ...
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Introduction}
+Reverberation mapping (RM) is an important technique that has contributed a
+large amount to our knowledge of active galactic nuclei (AGN).
 
+Since its inception, there have been many improvements in the analysis of
+reverberation mapping data. These range from methods that attempt to infer the
+transfer function \citep{1995ApJ...440..166K, 2011ApJ...735...80Z},
+the velocity-resolved transfer function
+\citep{2010ApJ...720L..46B}, or the physical structure of the BLR itself
+\citep{pancoast, arp151}.
 
 There are deeper issues at play in reverberation mapping, that we will ignore
 for the purposes of this letter. We list them here for completeness. Firstly,
@@ -72,13 +80,14 @@ contributions by \citet{pancoast} and \citet{arp151}.
 If the continuum light curve is described by a function $y(t)$, then the line
 light curve $l(t)$ is given by
 \begin{eqnarray}
-l(t) &=& A \int_\tau \Psi(\tau)\left[y(t - \tau) - B\right] \, d\tau
+l(t) &=& A \int_\tau \Psi(\tau)\left[y(t - \tau) - C\right] \, d\tau
 \end{eqnarray}
 where $\Psi(\tau)$ is the transfer function (assumed to be normalised),
 and $A$ and $B$ are response
 coefficients. The idea of reverberation mapping is to use noisy measurements
 of $y(t)$ and $l(t)$ to infer the transfer function $\Psi(\tau)$ or a summary
 of it such as the mean lag $\bar{\tau} = \int \tau\Psi(\tau) \, d\tau$.
+Throughout this letter we consider $y(t)$ and $l(t)$ as fluxes, not magnitudes.
 
 Recently, \citet{2012MNRAS.427.2701F, 2013MNRAS.434L..16F} introduced an
 innovative approach to reverberation mapping where the results from multiple
@@ -193,6 +202,8 @@ useful conversations about reverberation mapping. The STAN team
 
 
 \begin{thebibliography}{99}
+\bibitem[\protect\citeauthoryear{Bentz et al.}{2010}]{2010ApJ...720L..46B} 
+Bentz M.~C., et al., 2010, ApJ, 720, L46 
 
 \bibitem[\protect\citeauthoryear{Bovy Jo, Hogg, 
 \& Roweis}{2011}]{extreme_deconvolution} Bovy Jo, Hogg D.~W., Roweis S.~T., 2011, AnApS, 5, 1657 
@@ -219,6 +230,9 @@ B.~C., 2007, ApJ, 665, 1489
 \bibitem[\protect\citeauthoryear{Kelly, Bechtold, 
 \& Siemiginowska}{2009}]{2009ApJ...698..895K} Kelly B.~C., Bechtold J.,
 Siemiginowska A., 2009, ApJ, 698, 895 
+
+\bibitem[\protect\citeauthoryear{Krolik 
+\& Done}{1995}]{1995ApJ...440..166K} Krolik J.~H., Done C., 1995, ApJ, 440, 166 
 
 \bibitem[\protect\citeauthoryear{Loredo}{2004}]{loredo} Loredo 
 T.~J., 2004, AIP Conference Series, 735, 195 
