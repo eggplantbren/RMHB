@@ -8,4 +8,4 @@ posterior_sample.txt
 weights.txt
 sample_info.txt
 levels.txt
-
+*.pyc
