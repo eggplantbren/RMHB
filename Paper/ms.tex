@@ -115,10 +115,16 @@ on each object $i$, all using a common prior $\pi(\theta_i)$. Rather than
 analysing all objects together, which can be very computationally expensive,
 we can use the posterior distributions from Equation~\ref{eq:individual}
 to reconstruct the results that would be obtained if we did analyse all
-objects together.
+objects together with a hierarchical prior on the $\theta_i$ parameters.
 
-In a hierarchical model, the posterior distribution for
-$\btheta = \{\theta_1, ..., \theta_N\}$ and some hyperparameters $\alpha$
+In a hierarchical model, the prior for the parameters $\{\theta_i\}$ is created
+by introducing hyperparameters $\alpha$ such that the joint prior for $\alpha$
+and the $\{\theta_i\}$ is:
+\begin{eqnarray}
+p(\alpha, \theta_i) &=& p(\alpha)\prod_{i=1}^N p(\theta_i | \alpha)
+\end{eqnarray}
+The posterior distribution for
+$\btheta = \{\theta_1, ..., \theta_N\}$ and the hyperparameters $\alpha$
 given the data 
 $\bx = \{x_1, ..., x_N\}$
 should actually be
@@ -128,7 +134,6 @@ p(\alpha)p(\btheta|\alpha)p(\bx | \btheta, \alpha)\\
 &=& p(\alpha)\prod_{i=1}^N f(\theta_i|\alpha)p(x_i | \theta_i)
 \end{eqnarray}
 The marginal posterior distribution for the hyperparameters $\alpha$ is
-
 \begin{eqnarray}
 p(\alpha | \bx) &=&
 \int p(\alpha, \btheta|\bx) \, d\btheta\\
