@@ -7,7 +7,7 @@ for k in xrange(0, 100):
 	# Make the first time series
 	L = exp(log(100.) + log(100.)*rand())
 	alpha = exp(-1./L)
-	beta = exp(log(0.05) + log(20.)*rand())
+	beta = exp(log(0.2) + log(5.)*rand())
 
 	y1 = zeros(1000)
 	for i in xrange(1, 1000):
