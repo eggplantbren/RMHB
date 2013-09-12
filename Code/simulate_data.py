@@ -1,7 +1,22 @@
 from pylab import *
 
+
+def ccf(t1, t2, y1, y2):
+	lags = empty(len(y1)*len(y2))
+	weights = empty(len(y1)*len(y2))
+	k = 0
+	for i in xrange(0, len(y1)):
+		for j in xrange(0, len(y2)):
+			lags[k] = t2[j] - t1[i]
+			weights[k] = y2[j]*y1[i]
+			k += 1
+	return [lags, weights]
+
 seed(123)
 which = 0
+
+all_lags = array([])
+all_weights = array([])
 
 for k in xrange(0, 100):
 	# Make the first time series
@@ -41,6 +56,10 @@ for k in xrange(0, 100):
 	data2[:,1] = y2[which2] + sigma2*randn(2)
 	data2[:,2] = sigma2
 
+	[lags, weights] = ccf(data1[:,0], data2[:,0], data1[:,1], data2[:,1])
+	all_lags = hstack([all_lags, lags])
+	all_weights = hstack([all_weights, weights/weights.sum()])
+
 	if k == which:
 		savetxt('data1.txt', data1)
 		savetxt('data2.txt', data2)
@@ -50,4 +69,7 @@ for k in xrange(0, 100):
 		errorbar(data1[:,0], data1[:,1], yerr=data1[:,2], fmt='bo')
 		errorbar(data2[:,0], data2[:,1], yerr=data2[:,2], fmt='ro')
 		show()
+
+hist(all_lags, 300, weights=all_weights)
+show()
 
