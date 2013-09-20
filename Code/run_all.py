@@ -47,7 +47,7 @@ import os
 seed(123)
 import postprocess
 
-for i in xrange(0, 1):
+for i in xrange(0, 100):
 	simulate_data(i, numpoints=5)
 
 	f = open('OPTIONS_TEMPLATE', 'r')
