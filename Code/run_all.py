@@ -76,6 +76,6 @@ for i in xrange(0, 1):
 	f.close()
 
 	os.system('./main -t 8')
-	postprocess.postprocess(cut=0.3333)
+	postprocess.postprocess(cut=0.3333, plot=False)
 	os.system('cp posterior_sample.txt Results/' + str(i) + '.txt')
 
