@@ -45,7 +45,7 @@ for k in xrange(0, 100):
 	which1 = sort(randint(1000, size=100))
 	which2 = 500 + sort(randint(500, size=2))
 
-	sigma1, sigma2 = 1., 1.
+	sigma1, sigma2 = 1., 0.25
 	data1 = zeros((100, 3))
 	data2 = zeros((2, 3))
 	data1[:,0] = which1

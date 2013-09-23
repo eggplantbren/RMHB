@@ -28,7 +28,7 @@ def simulate_data(which=0, numpoints=5):
 		which1 = sort(randint(1000, size=100))
 		which2 = 500 + sort(randint(500, size=numpoints))
 
-		sigma1, sigma2 = 1., 1.
+		sigma1, sigma2 = 1., 0.25
 		data1 = zeros((100, 3))
 		data2 = zeros((numpoints, 3))
 		data1[:,0] = which1
@@ -48,7 +48,7 @@ seed(123)
 import postprocess
 
 for i in xrange(0, 100):
-	simulate_data(i, numpoints=5)
+	simulate_data(i, numpoints=2)
 
 	f = open('OPTIONS_TEMPLATE', 'r')
 	o = f.read()
