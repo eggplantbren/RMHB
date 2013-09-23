@@ -16,7 +16,7 @@ for i in xrange(0, 100):
 
 num = 512
 mu = linspace(-3., 3., num)
-sigma = linspace(0.01, 1., num)
+sigma = linspace(0.05, 1., num)
 [mu, sigma] = meshgrid(mu, sigma)
 sigma = sigma[::-1, :]
 
