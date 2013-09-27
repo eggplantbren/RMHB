@@ -29,9 +29,11 @@ for i in xrange(0, logL.shape[0]):
 rc("font", size=16, family="serif", serif="Computer Sans")
 rc("text", usetex=True)
 imshow(exp(logL - logL.max()), aspect=6./0.99, extent=[-3, 3, 0.05, 1])
-plot(1.867, 0.157, 'wo')
+hold(True)
+plot(1.867, 0.157, 'w*', markersize=10)
+ylim(0.05)
 xlabel('$\\mu$')
 ylabel('$\\sigma$')
-savefig('posterior.eps', bbox_inches='tight')
+savefig('posterior.pdf', bbox_inches='tight')
 show()
 
