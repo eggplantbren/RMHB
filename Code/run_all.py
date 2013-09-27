@@ -1,6 +1,10 @@
 from pylab import *
 
 def simulate_data(which=0, numpoints=5):
+
+	lags = []
+	weights = []
+
 	for k in xrange(0, 100):
 		# Make the first time series
 		L = exp(log(100.) + log(100.)*rand())
@@ -42,6 +46,26 @@ def simulate_data(which=0, numpoints=5):
 		if k == which:
 			savetxt('data1.txt', data1)
 			savetxt('data2.txt', data2)
+
+		for ii in xrange(0, data1.shape[0]):
+			for jj in xrange(0, data2.shape[0]):
+				lags.append(data2[jj, 0] - data1[ii, 0])
+				weights.append((data1[ii, 1] - mean(data1[:,1]))*(data2[jj, 1] - mean(data2[:,1])))
+
+	lags = array(lags)
+	weights = array(weights)
+
+#	rc("font", size=16, family="serif", serif="Computer Sans")
+#	rc("text", usetex=True)
+
+
+#	hist(lags[abs(lags - 150) < 150], 300, weights=weights[abs(lags - 150) < 150], alpha=0.25)
+#	xlim([0, 300])
+#	ylim(-50)
+#	xlabel('Lag $\\tau$')
+#	ylabel('Stacked Cross-Correlation Function')
+#	savefig('ccf.pdf')
+#	show()
 
 import os
 seed(123)
