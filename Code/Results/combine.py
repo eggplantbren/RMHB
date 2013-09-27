@@ -11,8 +11,8 @@ def log_likelihood(params, xx):
 # Load all of the posterior samples
 xx = []
 for i in xrange(0, 100):
-	posterior_sample = atleast_2d(loadtxt(str(i) + '.txt'))
-	xx.append(log10(posterior_sample[:,0]))
+	posterior_sample = loadtxt(str(i) + '.txt', usecols=[0])
+	xx.append(log10(posterior_sample))
 
 num = 512
 mu = linspace(-3., 3., num)
@@ -26,11 +26,12 @@ for i in xrange(0, logL.shape[0]):
 		logL[i, j] = log_likelihood([mu[i, j], sigma[i, j]], xx)
 	print(i)
 
-
 rc("font", size=16, family="serif", serif="Computer Sans")
 rc("text", usetex=True)
 imshow(exp(logL - logL.max()), aspect=6./0.99, extent=[-3, 3, 0.05, 1])
+plot(1.867, 0.157, 'wo')
 xlabel('$\\mu$')
 ylabel('$\\sigma$')
+savefig('posterior.eps', bbox_inches='tight')
 show()
 
