@@ -84,18 +84,6 @@ transfer functions (i.e. only a single lag in the system, rather than a wide
 distribution of lags). Some of these difficulties have been addressed in other
 contributions by \citet{pancoast} and \citet{arp151}.
 
-If the continuum light curve is described by a function $y(t)$, then the line
-light curve $l(t)$ is given by
-\begin{eqnarray}
-l(t) &=& A \int_\tau \Psi(\tau)\left[y(t - \tau) + C\right] \, d\tau
-\end{eqnarray}
-where $\Psi(\tau)$ is the transfer function (assumed to be normalised),
-and $A$ and $C$ are response
-coefficients. The idea of reverberation mapping is to use noisy measurements
-of $y(t)$ and $l(t)$ to infer the transfer function $\Psi(\tau)$ or a summary
-of it such as the mean lag $\bar{\tau} = \int \tau\Psi(\tau) \, d\tau$.
-Throughout this letter we consider $y(t)$ and $l(t)$ as fluxes, not magnitudes.
-
 Recently, \citet{2012MNRAS.427.2701F, 2013MNRAS.434L..16F} introduced an
 innovative approach to reverberation mapping where the results from multiple
 AGN can be combined to yield inferences about the entire sample of AGN,
@@ -110,6 +98,20 @@ We implement this idea with a Bayesian hierarchical model
 These models are becoming increasingly common in astrophysics and have been
 used in a variety of different fields
 \citep[e.g.][]{extreme_deconvolution, loredo, kelly, 2013AJ....146....7B}.
+
+\section{Model Assumptions}
+
+If the continuum light curve is described by a function $y(t)$, then the line
+light curve $l(t)$ is given by
+\begin{eqnarray}
+l(t) &=& A \int_\tau \Psi(\tau)\left[y(t - \tau) + C\right] \, d\tau
+\end{eqnarray}
+where $\Psi(\tau)$ is the transfer function (assumed to be normalised),
+and $A$ and $C$ are response
+coefficients. The idea of reverberation mapping is to use noisy measurements
+of $y(t)$ and $l(t)$ to infer the transfer function $\Psi(\tau)$ or a summary
+of it such as the mean lag $\bar{\tau} = \int \tau\Psi(\tau) \, d\tau$.
+Throughout this letter we consider $y(t)$ and $l(t)$ as fluxes, not magnitudes.
 
 \section{Combining Inferences About Multiple Objects}
 Consider a sample of $N$ objects, each of which has parameters $\theta_i$.
@@ -153,7 +155,6 @@ where the expectation is taken with respect to the individual object posterior
 of Equation~\ref{eq:individual}. This result enables us to reconstruct the
 posterior distribution for the hyperparameters even though the individual object
 inferences were made without the hierarchical structure in the prior.
-
 
 
 \section{The Single Object Model}
@@ -204,6 +205,14 @@ cross-correlation techniques.
 
 
 \section{Demonstration on Simulated Data}
+
+\begin{figure}
+\begin{center}
+\includegraphics{Figures/posterior.eps}
+\caption{\label{fig:posterior}}
+\end{center}
+\end{figure}
+
 
 
 \section*{Acknowledgements}
