@@ -77,12 +77,13 @@ the velocity-resolved transfer function
 
 There are many subtleties involved in reverberation mapping, that we will ignore
 for the purposes of this letter. We note them here for completeness. Firstly,
-the lag $\tau$ is not equal to $c$ times the mean radius of the BLR
-distribution. Secondly, the lag $\tau$ is also not what the common
-cross-correlation techniques measures, except in the case of very narrow
-transfer functions (i.e. only a single lag in the system, rather than a wide
-distribution of lags). Some of these difficulties have been addressed in other
-contributions by \citet{pancoast} and \citet{arp151}.
+the mean lag $\bar{\tau} = \int \Psi(\tau)\, d\tau$, where $\Psi(\tau)$
+is the transfer function, is not equal to $c$ times the mean radius of the BLR
+distribution. Secondly, the mean lag $\bar{\tau}$ is also not what is measured
+by the common
+cross-correlation technique, except in the case of very narrow
+transfer functions. Direct physical modelling of the BRL resolves these
+issues \citep{pancoast, arp151}.
 
 Recently, \citet{2012MNRAS.427.2701F, 2013MNRAS.434L..16F} introduced an
 innovative approach to reverberation mapping where the results from multiple
@@ -209,7 +210,18 @@ cross-correlation techniques.
 \begin{figure}
 \begin{center}
 \includegraphics[scale=0.5]{Figures/posterior.eps}
-\caption{\label{fig:posterior}}
+\caption{The joint posterior distribution for $\mu$ and $\sigma$, hyperparameters
+describing the distribution of $\bar{\tau}$ values in the sample. The prior
+distribution was uniform over the area shown.
+The true solution is indicated by the white circle.\label{fig:posterior}}
+\end{center}
+\end{figure}
+
+\begin{figure}
+\begin{center}
+\includegraphics[scale=0.5]{Figures/ccf.eps}
+\caption{The stacked cross-correlation function of the simulated data.
+\label{fig:ccf}}
 \end{center}
 \end{figure}
 
