@@ -77,8 +77,8 @@ the velocity-resolved transfer function
 
 There are many subtleties involved in reverberation mapping, that we will ignore
 for the purposes of this letter. We note them here for completeness. Firstly,
-the mean lag $\bar{\tau} = \int \Psi(\tau)\, d\tau$, where $\Psi(\tau)$
-is the transfer function, is not equal to $c$ times the mean radius of the BLR
+the mean lag $\bar{\tau} = \int \tau\Psi(\tau)\, d\tau$, where $\Psi(\tau)$
+is the normalised transfer function, is not equal to $c$ times the mean radius of the BLR
 distribution. Secondly, the mean lag $\bar{\tau}$ is also not what is measured
 by the common
 cross-correlation technique, except in the case of very narrow
@@ -112,7 +112,8 @@ and $A$ and $C$ are response
 coefficients. The idea of reverberation mapping is to use noisy measurements
 of $y(t)$ and $l(t)$ to infer the transfer function $\Psi(\tau)$ or a summary
 of it such as the mean lag $\bar{\tau} = \int \tau\Psi(\tau) \, d\tau$.
-Throughout this letter we consider $y(t)$ and $l(t)$ as fluxes, not magnitudes.
+Throughout this letter we consider $y(t)$ and $l(t)$ in flux
+units, as opposed to magnitudes.
 
 \section{Combining Inferences About Multiple Objects}
 Consider a sample of $N$ objects, each of which has parameters $\theta_i$.
@@ -153,14 +154,16 @@ p(\alpha | \bx) &=&
 &\propto& p(\alpha) \prod_{i=1}^N \mathds{E}\left[\frac{f(\theta_i|\alpha)}{\pi(\theta)}\right]
 \end{eqnarray}
 where the expectation is taken with respect to the individual object posterior
-of Equation~\ref{eq:individual}. This result enables us to reconstruct the
+of Equation~\ref{eq:individual}, and thus can be estimated using posterior
+samples from the posterior distributions for the individual objects.
+This result enables us to reconstruct the
 posterior distribution for the hyperparameters even though the individual object
-inferences were made without the hierarchical structure in the prior.
-
+inferences were made without the hierarchical structure in the prior. This is
+essentially an importance sampling approximation to the hierarchical model.
 
 \section{The Single Object Model}
 The posterior distribution for the mean lag $\bar{\tau}$ of a single object
-$i$ is obtained
+$i$ may be obtained
 by fitting the following model. We assume, for simplicity, that
 the transfer function is uniform
 between limits $a$ and $b$, where $b > a$:
@@ -171,18 +174,22 @@ between limits $a$ and $b$, where $b > a$:
 0, & \textnormal{otherwise}s
 \end{array}\right.
 \end{eqnarray}
-and our goal is to measure the mean lag $\bar{\tau} = \frac{1}{2}(b-a)$.
+and our goal is to measure the mean lag:
+\begin{eqnarray}
+\bar{\tau} &=& \int \\
+&=& \frac{1}{2}(b-a)
+\end{eqnarray}
 
+Note that inferring $\bar{\tau}$ from the data requires that we
+marginalise over an infinite number of nuisance parameters describing the
+behaviour of $y(t)$ at unobserved times \citep{pancoast}.
 The prior for the underlying time variation of the continuum emission is
 a continuous autoregressive process of order 1, or a CAR(1) model. These models
 have been studied extensively for AGN variability
 \citep[e.g.][]{2009ApJ...698..895K, 2011ApJ...735...80Z, 2013ApJ...765..106Z}.
-Note that inferring $\bar{\tau}$ from the data requires that we
-marginalise over an infinite number of nuisance parameters describing the
-behaviour of $y(t)$ at unobserved times \citep{pancoast}.
-
 This marginalisation can be done
-either analytically or inside MCMC. We use the latter approach. We discretise
+either analytically or inside MCMC. We used the latter approach for simplicity.
+We discretised
 time using ten time bins per day, and have a discrete continuum light curve
 $\mathbf{y} = \{y_1, ..., y_n\}$
 \begin{eqnarray}
@@ -190,6 +197,9 @@ y_i = \mu + a\left(y_{i-1} - \mu\right) + \beta n_i
 \end{eqnarray}
 for $i \geq 2$, where the prior for the $\{n_i\}$ is independent standard
 normal distributions. This is the discrete AR(1) model from time series theory.
+$\mu$ describes the mean level of the continuum light curve, $\beta$ controls
+the size of the short-term fluctuations, and $a$ controls the correlation
+timescale.
 
 For the likelihood (or sampling distribution, really the prior for the data
 given the parameters) we made the conventional gaussian assumption:
@@ -198,14 +208,20 @@ Y_i &\sim& \mathcal{N}\left(y(t_{l_i}), \sigma_{y_i}^2\right)\\
 L_i &\sim& \mathcal{N}\left(l(t_{l_i}), \sigma_{l_i}^2\right)
 \end{eqnarray}
 
-For the MCMC we used STAN \citep{nuts} and DNest \citep{dnest}.
-
-
+To implement the MCMC we implemented this model in the STAN sampler \citep{nuts}
+and Diffusive Nested Sampling \citep{dnest}. Due to the large number of
+parameters and some very strong correlations in the posterior distribution,
+we found that Diffusive Nested Sampling was more effective than STAN.
 Note the single-object model is already an improvement over standard
-cross-correlation techniques.
-
+cross-correlation techniques and is similar to the approach used by
+\citep{2011ApJ...735...80Z}.
 
 \section{Demonstration on Simulated Data}
+To test our hierarchical model, and compare it to the stacked cross-correlation
+function, we simulated data from 100 AGN.
+
+The cross-correlation function for a single object is
+
 
 \begin{figure}
 \begin{center}
