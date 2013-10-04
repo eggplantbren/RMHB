@@ -79,10 +79,12 @@ There are many subtleties involved in reverberation mapping, that we will ignore
 for the purposes of this letter. We note them here for completeness. Firstly,
 the mean lag $\bar{\tau} = \int \tau\Psi(\tau)\, d\tau$, where $\Psi(\tau)$
 is the normalised transfer function, is not equal to $c$ times the mean radius of the BLR
-distribution. Secondly, the mean lag $\bar{\tau}$ is also not what is measured
-by the common
+distribution, $\bar{r} = \int \sqrt{x^2+y^2+z^2}\rho(x, y, z)\, d^3 \mathbf{x}$.
+Secondly, the mean lag $\bar{\tau}$ is not accessible
+using the common
 cross-correlation technique, except in the case of very narrow
-transfer functions. Direct physical modelling of the BRL resolves these
+transfer functions.
+Direct physical modelling of the BLR resolves these
 issues \citep{pancoast, arp151}.
 
 Recently, \citet{2012MNRAS.427.2701F, 2013MNRAS.434L..16F} introduced an
@@ -176,7 +178,7 @@ between limits $a$ and $b$, where $b > a$:
 \end{eqnarray}
 and our goal is to measure the mean lag:
 \begin{eqnarray}
-\bar{\tau} &=& \int \\
+\bar{\tau} &=& \int \tau \Psi(\tau) \, d\tau\\
 &=& \frac{1}{2}(b-a)
 \end{eqnarray}
 
@@ -204,11 +206,12 @@ timescale.
 For the likelihood (or sampling distribution, really the prior for the data
 given the parameters) we made the conventional gaussian assumption:
 \begin{eqnarray}
-Y_i &\sim& \mathcal{N}\left(y(t_{l_i}), \sigma_{y_i}^2\right)\\
+Y_i &\sim& \mathcal{N}\left(y(t_{y_i}), \sigma_{y_i}^2\right)\\
 L_i &\sim& \mathcal{N}\left(l(t_{l_i}), \sigma_{l_i}^2\right)
 \end{eqnarray}
 
-To implement the MCMC we implemented this model in the STAN sampler \citep{nuts}
+To implement the MCMC for a single object,
+we implemented our model in the STAN sampler \citep{nuts}
 and Diffusive Nested Sampling \citep{dnest}. Due to the large number of
 parameters and some very strong correlations in the posterior distribution,
 we found that Diffusive Nested Sampling was more effective than STAN.
@@ -220,8 +223,24 @@ cross-correlation techniques and is similar to the approach used by
 To test our hierarchical model, and compare it to the stacked cross-correlation
 function, we simulated data from 100 AGN.
 
-The cross-correlation function for a single object is
+The cross-correlation function for a single object is defined as
 
+\begin{eqnarray}
+\textnormal{CCF}(\tau) &=&
+\sum_{i=1}^{N_c} \sum_{j=1}^{N_l} \left(\frac{(y_i - \bar{y})(l_j - \bar{l})}{\sigma_{y_i}^2\sigma_{l_j}^2}\right)
+\delta\left[\tau - (t_{l_j} - t_{y_i})\right]
+\end{eqnarray}
+
+The stacked cross-correlation function for $N$ objects is the mean of the CCFs
+of the individual objects, after normalising each object's CCF to unity.
+
+\begin{eqnarray}
+\textnormal{SCCF}(\tau) &=&
+\frac{1}{N} \sum_{i=1}^N
+\left(
+\frac{\textnormal{CCF}_i(\tau)}{\int \textnormal{CCF}_i(\tau) \, d\tau}
+\right)
+\end{eqnarray}
 
 \begin{figure}
 \begin{center}
