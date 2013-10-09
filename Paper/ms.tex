@@ -223,13 +223,27 @@ cross-correlation techniques and is similar to the approach used by
 To test our hierarchical model, and compare it to the stacked cross-correlation
 function, we simulated data from 100 AGN.
 
-The cross-correlation function for a single object is defined as
-
+The cross-correlation function for a single object is defined as follows. First,
+the mean levels $\bar{y}$ and $\bar{l}$ of the continuum and line light curves,
+are calculated (weighted by the reported size of the error bars on each
+measurement):
 \begin{eqnarray}
-\textnormal{CCF}(\tau) &=&
-\sum_{i=1}^{N_c} \sum_{j=1}^{N_l} \left(\frac{(y_i - \bar{y})(l_j - \bar{l})}{\sigma_{y_i}^2\sigma_{l_j}^2}\right)
-\delta\left[\tau - (t_{l_j} - t_{y_i})\right]
+\bar{y} &=& \frac{\sum_{i=1}^{N_c} \left(y_i/\sigma_{y_i}^2\right)}{\sum_{i=1}^{N_c} \left(1/\sigma_{y_i}^2\right)}\\
+\bar{l} &=& \frac{\sum_{i=1}^{N_l} \left(l_i/\sigma_{l_i}^2\right)}{\sum_{i=1}^{N_l} \left(1/\sigma_{l_i}^2\right)}
 \end{eqnarray}
+
+The cross correlation function, as a function of lag $\tau$, is then defined as:
+\begin{eqnarray}
+\textnormal{CCF}(\tau) =
+\sum_{i=1}^{N_c} \sum_{j=1}^{N_l}
+\left(\frac{(y_i - \bar{y})(l_j - \bar{l})}{\sigma_{y_i}^2\sigma_{l_j}^2}
+\delta\left[\tau - (t_{l_j} - t_{y_i})\right]\right)
+\end{eqnarray}
+This can be understood as a set of delta-function spikes, one for each pair
+of points (one point chosen from the continuum data, and one point from the
+line data). The position of each spike depends on the time between the continuum
+data point and the line data point, and the mass of each spike is proportional
+to the continuum and line fluxes.
 
 The stacked cross-correlation function for $N$ objects is the mean of the CCFs
 of the individual objects, after normalising each object's CCF to unity.
