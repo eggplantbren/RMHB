@@ -52,17 +52,19 @@ def simulate_data(which=0, numpoints=5):
 				lags.append(data2[jj, 0] - data1[ii, 0])
 				weights.append((data1[ii, 1] - mean(data1[:,1]))*(data2[jj, 1] - mean(data2[:,1])))
 
-	lags = array(lags)
-	weights = array(weights)
+#	lags = array(lags)
+#	weights = array(weights)
 
 #	rc("font", size=16, family="serif", serif="Computer Sans")
 #	rc("text", usetex=True)
 
+#	_lags = lags[abs(lags - 150) < 150]
+#	_weights = weights[abs(lags - 150) < 150]
 
-#	hist(lags[abs(lags - 150) < 150], 300, weights=weights[abs(lags - 150) < 150], alpha=0.25)
-#	xlim([0, 300])
-#	ylim(-50)
-#	xlabel('Lag $\\tau$')
+#	hist(log10(_lags), 100, weights=_weights, alpha=0.25)
+#	xlim([0, 3])
+#	ylim(0)
+#	xlabel('$\\log_{10}(\\tau)$')
 #	ylabel('Stacked Cross-Correlation Function')
 #	savefig('ccf.pdf')
 #	show()
