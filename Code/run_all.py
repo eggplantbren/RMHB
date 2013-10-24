@@ -1,5 +1,9 @@
 from pylab import *
 
+
+rc("font", size=16, family="serif", serif="Computer Sans")
+rc("text", usetex=True)
+
 def simulate_data(which=0, numpoints=5):
 
 	lags = []
@@ -52,11 +56,24 @@ def simulate_data(which=0, numpoints=5):
 				lags.append(data2[jj, 0] - data1[ii, 0])
 				weights.append((data1[ii, 1] - mean(data1[:,1]))*(data2[jj, 1] - mean(data2[:,1])))
 
+#		if k < 3:
+#			subplot(3, 1, k+1)
+#			errorbar(data1[:,0]/10, data1[:,1], yerr=data1[:,2], fmt='bo', markersize=1, label='Continuum')
+#			errorbar(data2[:,0]/10, data2[:,1], yerr=data2[:,2], fmt='ro', markersize=1, label='Line')
+#			gca().set_yticks([0, 20, 40, 60])
+
+#			if k == 1:
+#				ylabel('Flux')
+#			if k < 2:
+#				gca().set_xticks([])
+#			else:
+#				xlabel('Time (days)')
+#				legend(loc='lower left', numpoints=1)
+#				savefig('data.pdf', bbox_inches='tight')
+#				show()
+
 #	lags = array(lags)
 #	weights = array(weights)
-
-#	rc("font", size=16, family="serif", serif="Computer Sans")
-#	rc("text", usetex=True)
 
 #	_lags = lags[abs(lags - 150) < 150]
 #	_weights = weights[abs(lags - 150) < 150]
