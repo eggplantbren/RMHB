@@ -44,14 +44,17 @@ and subsequent response of the broad line region (BLR). The measurement of
 $\tau$ is typically used to estimate the physical size of the BLR and is
 combined with other measurements to estimate the black hole mass $M_{\rm BH}$.
 A major difficulty with RM campaigns is the large amount of data needed to
-measure $\tau$. Recently, several approaches have been suggested for reducing
-the cost of RM. One is to make less detailed measurements on a large sample
-of AGN, and then combine the results to infer something about the sample of
-AGN as a whole. In this letter we implement this method using a hierarchical
+measure $\tau$. Recently, \citet{2012MNRAS.427.2701F} introduced a new approach
+to RM where the BLR light curve is sparsely sampled, but this is counteracted
+by observing a large sample of AGN, rather than a single system.
+The results are combined to infer properties of the sample of
+AGN. In this letter we implement this method using a hierarchical
 Bayesian model and contrast this with the results from the previous stacked
-cross-correlation technique. We find ...
+cross-correlation technique. We find that our inferences are more precise and
+allow for more straightforward interpretation than the cross-correlation
+technique.
 \end{abstract}
-
+galaxies:active --- methods: data analysis
 \begin{keywords}
 
 \end{keywords}
@@ -63,28 +66,28 @@ Reverberation mapping (RM) is an important technique for the study
 of active galactic nuclei (AGN). The technique is based on the temporal
 fluctuations of the central continuum source, and the subsequent response
 of the broad line region (BLR) emission. The time delay between the continuum
-and the broad line fluctuations provides an estimate of the size of the BLR.
+and the broad line fluctuations provides an estimate of the size of the BLR
+\citep{peterson}.
 
 RM is a observationally intensive, requiring observations over a period of
 a few tens of days \citep{2013ApJ...769..128B}. As a result, many authors have
-studied the data analysis techniques involved in RM, and made substantial
-advances. These range from methods that attempt to infer the
+studied the data analysis techniques involved in RM, and substantial
+advances have been made in recent years.
+The methods introduced range from those that attempt to infer the
 transfer function \citep[the distribution of lags in a single object,
 e.g.][]{1995ApJ...440..166K, 2011ApJ...735...80Z},
 the velocity-resolved transfer function
 \citep{2010ApJ...720L..46B}, or the physical structure of the BLR itself
-\citep{pancoast, arp151}.
+\citep{pancoast, arp151, pancoast2, 2013arXiv1310.3907L}.
 
 There are many subtleties involved in reverberation mapping, that we will ignore
 for the purposes of this letter. We note them here for completeness. Firstly,
 the mean lag $\bar{\tau} = \int \tau\Psi(\tau)\, d\tau$, where $\Psi(\tau)$
 is the normalised transfer function, is not equal to $c$ times the mean radius of the BLR
 distribution, $\bar{r} = \int \sqrt{x^2+y^2+z^2}\rho(x, y, z)\, d^3 \mathbf{x}$.
-Secondly, the mean lag $\bar{\tau}$ is not accessible
-using the common
-cross-correlation technique, except in the case of very narrow
-transfer functions.
-Direct physical modelling of the BLR resolves these
+Secondly, the mean lag $\bar{\tau}$ is not equivalent to the peak of the
+cross-correlation function, except in the case of very narrow
+transfer functions. Direct physical modelling of the BLR resolves these
 issues \citep{pancoast, arp151}.
 
 Recently, \citet{2012MNRAS.427.2701F, 2013MNRAS.434L..16F} introduced an
@@ -100,7 +103,7 @@ We implement this idea with a Bayesian hierarchical model
 \citep{2012arXiv1208.3036L}.
 These models are becoming increasingly common in astrophysics and have been
 used in a variety of different fields
-\citep[e.g.][]{extreme_deconvolution, loredo, kelly, 2013AJ....146....7B}.
+\citep[e.g.][]{extreme_deconvolution, loredo, kelly, 2013arXiv1310.5177B, 2013AJ....146....7B}.
 
 \section{Model Assumptions}
 
@@ -289,7 +292,8 @@ $\log_{10}\left(\bar{\tau}\right)$, is plotted as the solid line.
 \section*{Acknowledgements}
 It is a pleasure to thank Tommaso Treu, Anna Pancoast (UCSB), and
 Brandon Kelly (UCSB) for many
-useful conversations about reverberation mapping. The STAN team 
+useful conversations about reverberation mapping. The STAN ({\tt mc-stan.org})
+team provided helpful advice about the use of their software.
 
 
 
@@ -299,9 +303,6 @@ Barth A.~J., et al., 2013, ApJ, 769, 128
 
 \bibitem[\protect\citeauthoryear{Bentz et al.}{2010}]{2010ApJ...720L..46B} 
 Bentz M.~C., et al., 2010, ApJ, 720, L46 
-
-\bibitem[\protect\citeauthoryear{Bovy Jo, Hogg, 
-\& Roweis}{2011}]{extreme_deconvolution} Bovy Jo, Hogg D.~W., Roweis S.~T., 2011, AnApS, 5, 1657 
 
 \bibitem[\protect\citeauthoryear{Brewer et al.}{2011}]{arp151} 
 Brewer B.~J., et al., 2011, ApJ, 733, L33 
@@ -313,11 +314,18 @@ Cs{\'a}nyi G., 2011, Statistics and Computing, 21, 4, 649-656. arXiv:0912.2380
 \bibitem[\protect\citeauthoryear{Brewer, Foreman-Mackey, 
 \& Hogg}{2013}]{2013AJ....146....7B} Brewer B.~J., Foreman-Mackey D., Hogg D.~W., 2013, AJ, 146, 7 
 
+\bibitem[\protect\citeauthoryear{Brewer et al.}{2013}]{2013arXiv1310.5177B} 
+Brewer B.~J., Marshall P.~J., Auger M.~W., Treu T., Dutton A.~A., 
+Barnab{\`e} M., 2013, arXiv, arXiv:1310.5177 
+
 \bibitem[\protect\citeauthoryear{Fine et al.}{2013}]{2013MNRAS.434L..16F} 
 Fine S., et al., 2013, MNRAS, 434, L16 
 
 \bibitem[\protect\citeauthoryear{Fine et al.}{2012}]{2012MNRAS.427.2701F} 
 Fine S., et al., 2012, MNRAS, 427, 2701 
+
+\bibitem[\protect\citeauthoryear{Hogg, Myers, 
+\& Bovy}{2010}]{extreme_deconvolution} Hogg D.~W., Myers A.~D., Bovy J., 2010, ApJ, 725, 2166 
 
 \bibitem[\protect\citeauthoryear{Kelly}{2007}]{kelly} Kelly 
 B.~C., 2007, ApJ, 665, 1489 
@@ -328,6 +336,9 @@ Siemiginowska A., 2009, ApJ, 698, 895
 
 \bibitem[\protect\citeauthoryear{Krolik 
 \& Done}{1995}]{1995ApJ...440..166K} Krolik J.~H., Done C., 1995, ApJ, 440, 166 
+
+\bibitem[\protect\citeauthoryear{Li et al.}{2013}]{2013arXiv1310.3907L} Li 
+Y.-R., Wang J.-M., Ho L.~C., Du P., Bai J.-M., 2013, arXiv, arXiv:1310.3907 
 
 \bibitem[\protect\citeauthoryear{Loredo}{2004}]{loredo} Loredo 
 T.~J., 2004, AIP Conference Series, 735, 195 
@@ -340,6 +351,12 @@ T.~J., 2012, arXiv, arXiv:1208.3036
 
 \bibitem[\protect\citeauthoryear{Pancoast, Brewer, 
 \& Treu}{2011}]{pancoast} Pancoast A., Brewer B.~J., Treu T., 2011, ApJ, 730, 139 
+
+\bibitem[\protect\citeauthoryear{Pancoast et 
+al.}{2012}]{pancoast2} Pancoast A., et al., 2012, ApJ, 754, 49 
+
+\bibitem[\protect\citeauthoryear{Peterson}{2008}]{peterson} 
+Peterson B.~M., 2008, NewAR, 52, 240 
 
 \bibitem[\protect\citeauthoryear{Zu et al.}{2013}]{2013ApJ...765..106Z} Zu 
 Y., Kochanek C.~S., Koz{\l}owski S., Udalski A., 2013, ApJ, 765, 106 
