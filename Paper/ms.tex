@@ -122,16 +122,19 @@ units, as opposed to magnitudes.
 
 \section{Combining Inferences About Multiple Objects}
 Consider a sample of $N$ objects, each of which has parameters $\theta_i$.
-The inference about object $i$ is described by a posterior distribution
+If the $i$th object is analysed on its own, the inference about 
+its parameters $\theta_i$ is described by a posterior distribution
 \begin{eqnarray}
 p(\theta_i | x_i) \propto \pi(\theta_i)p(x_i | \theta_i)\label{eq:individual}
 \end{eqnarray}
-We shall assume that this inference was carried out individually
-on each object $i$, all using a common prior $\pi(\theta_i)$. Rather than
-analysing all objects together, which can be very computationally expensive,
-we can use the posterior distributions from Equation~\ref{eq:individual}
-to reconstruct the results that would be obtained if we did analyse all
-objects together with a hierarchical prior on the $\theta_i$ parameters.
+where $\pi(\theta_i)$ is the prior distribution and $p(x_i | \theta_i)$ is the
+likelihood function. If $N$ objects are analysed separately, inferences can
+be made about the diversity of $\theta_i$ across the sample. However, these
+inferences may be incorrect due to the implicit assumption that the prior for
+all of the $\{\theta_i\}$ is independent.
+A hierarchical model may be used to overcome this problem.
+Section~\ref{sec:single_object} describes the assumptions used for analysing
+data from a single AGN.
 
 In a hierarchical model, the prior for the parameters $\{\theta_i\}$ is created
 by introducing hyperparameters $\alpha$ such that the joint prior for $\alpha$
@@ -166,7 +169,13 @@ posterior distribution for the hyperparameters even though the individual object
 inferences were made without the hierarchical structure in the prior. This is
 essentially an importance sampling approximation to the hierarchical model.
 
-\section{The Single Object Model}
+Rather than
+analysing all objects together, which can be very computationally expensive,
+we can use the posterior distributions from Equation~\ref{eq:individual}
+to reconstruct the results that would be obtained if we did analyse all
+objects together with a hierarchical prior on the $\theta_i$ parameters.
+
+\section{The Single Object Model}\label{sec:single_object}
 The posterior distribution for the mean lag $\bar{\tau}$ of a single object
 $i$ may be obtained
 by fitting the following model. We assume, for simplicity, that
@@ -225,16 +234,22 @@ cross-correlation techniques and is similar to the approach used by
 
 \section{Demonstration on Simulated Data}
 To test our hierarchical model, and compare it to the stacked cross-correlation
-function, we simulated data from 100 AGN.
-
+function, we simulated data from 100 AGN. The data for each object was
+continuum flux measurements, once per day, for 100 days. The continuum fluxes
+for each object oscillate around a mean value of 50 in arbitrary units, and the
+standard deviation of the measurement noise is 1 (i.e. 2\%). The line data is measured on
+only two days, with times selected from a uniform distribution between $t=50$
+and $t=100$ days (i.e. corresponding to the latter half of the continuum data).
+The flux of the line data is scaled to half that of the line data, and the
+measurement noise is 0.25, or 1\%, on the line data. See Figure~\ref{fig:data}
+for three illustrative data sets from the sample.
 
 \begin{figure}
 \begin{center}
 \includegraphics[scale=0.5]{Figures/data.eps}
-\caption{Simulated data.\label{fig:data}}
+\caption{Three simulated data sets, out of a total of 100.\label{fig:data}}
 \end{center}
 \end{figure}
-
 
 The cross-correlation function for a single object is defined as follows. First,
 the mean levels $\bar{y}$ and $\bar{l}$ of the continuum and line light curves,
@@ -260,7 +275,6 @@ to the continuum and line fluxes.
 
 The stacked cross-correlation function for $N$ objects is the mean of the CCFs
 of the individual objects, after normalising each object's CCF to unity.
-
 \begin{eqnarray}
 \textnormal{SCCF}(\tau) &=&
 \frac{1}{N} \sum_{i=1}^N
@@ -268,6 +282,10 @@ of the individual objects, after normalising each object's CCF to unity.
 \frac{\textnormal{CCF}_i(\tau)}{\int \textnormal{CCF}_i(\tau) \, d\tau}
 \right)
 \end{eqnarray}
+Since the CCF definition involves delta-functions, some smoothing is necessary
+to display the stacked CCF. In Figure~\ref{fig:ccf},
+we show the stacked CCF from the 100 simulated AGN data sets, plotted as a
+histogram (the nonzero bin width provides the smoothing).
 
 \begin{figure}
 \begin{center}
