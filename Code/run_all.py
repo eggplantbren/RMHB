@@ -78,12 +78,12 @@ def simulate_data(which=0, numpoints=5):
 #	_lags = lags[abs(lags - 150) < 150]
 #	_weights = weights[abs(lags - 150) < 150]
 
-#	hist(log10(_lags), 100, weights=_weights, alpha=0.25)
-#	xlim([0, 3])
+#	hist(log10(_lags/10), 100, weights=_weights, alpha=0.25)
+#	xlim([0, 1.5])
 #	ylim(0)
-#	xlabel('$\\log_{10}(\\tau)$')
+#	xlabel('$\\log_{10}(\\tau/(\\textnormal{1 day}))$')
 #	ylabel('Stacked Cross-Correlation Function')
-#	savefig('ccf.pdf')
+#	savefig('ccf.pdf', bbox_inches='tight')
 #	show()
 
 import os
