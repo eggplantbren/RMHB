@@ -103,11 +103,11 @@ We implement this idea with a Bayesian hierarchical model
 \citep{2012arXiv1208.3036L}.
 These models are becoming increasingly common in astrophysics and have been
 used in a variety of different fields
-\citep[e.g.][]{extreme_deconvolution, loredo, kelly, 2012AJ....143...90S, 2013arXiv1310.5177B, 2013AJ....146....7B}.
+\citep[e.g.][]{loredo, kelly, extreme_deconvolution, 2012AJ....143...90S, 2013arXiv1310.5177B, 2013AJ....146....7B}.
 
 \section{Model Assumptions}
-
-If the continuum light curve is described by a function $y(t)$, then the line
+If the continuum light curve of an AGN
+is described by a function $y(t)$, then the line
 light curve $l(t)$ is given by
 \begin{eqnarray}
 l(t) &=& A \int_\tau \Psi(\tau)\left[y(t - \tau) + C\right] \, d\tau
@@ -196,12 +196,13 @@ This marginalisation can be done
 either analytically or inside MCMC. We used the latter approach for simplicity.
 We discretised
 time using ten time bins per day, and have a discrete continuum light curve
-$\mathbf{y} = \{y_1, ..., y_n\}$
+$\mathbf{y} = \{y_1, ..., y_n\}$, included in the model as a set of unknown
+parameters. The prior for these parameters is:
 \begin{eqnarray}
-y_i = \mu + a\left(y_{i-1} - \mu\right) + \beta n_i
+p(y_i | y_{i-1},  \mu, a, \beta) \sim \mathcal{N}
+\left(\mu + a\left(y_{i-1} - \mu\right), \beta^2\right)
 \end{eqnarray}
-for $i \geq 2$, where the prior for the $\{n_i\}$ is independent standard
-normal distributions. This is the discrete AR(1) model from time series theory.
+for $i \geq 2$. This is the discrete AR(1) model from time series theory.
 $\mu$ describes the mean level of the continuum light curve, $\beta$ controls
 the size of the short-term fluctuations, and $a$ controls the correlation
 timescale.
@@ -293,7 +294,8 @@ $\log_{10}\left(\bar{\tau}\right)$, is plotted as the solid line.
 It is a pleasure to thank Tommaso Treu, Anna Pancoast (UCSB), and
 Brandon Kelly (UCSB) for many
 useful conversations about reverberation mapping. The STAN ({\tt mc-stan.org})
-team provided helpful advice about the use of their software.
+team provided helpful advice about the use of their software. BJB is partially
+supported by the Marsden Fund (Royal Society of New Zealand).
 
 
 
