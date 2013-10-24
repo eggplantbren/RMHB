@@ -12,10 +12,10 @@ def log_likelihood(params, xx):
 xx = []
 for i in xrange(0, 100):
 	posterior_sample = loadtxt(str(i) + '.txt', usecols=[0])
-	xx.append(log10(posterior_sample))
+	xx.append(log10(posterior_sample/10.))
 
 num = 512
-mu = linspace(-3., 3., num)
+mu = linspace(-2., 2., num)
 sigma = linspace(0.05, 1., num)
 [mu, sigma] = meshgrid(mu, sigma)
 sigma = sigma[::-1, :]
@@ -31,9 +31,9 @@ rc("text", usetex=True)
 
 post = exp(logL - logL.max())
 post = post/post.sum()
-imshow(post, aspect=6./0.99, extent=[-3, 3, 0.05, 1])
+imshow(-post, aspect=4./0.99, extent=[-2, 2, 0.05, 1], cmap='gray')
 hold(True)
-plot(1.867, 0.157, 'w*', markersize=10)
+plot(0.867, 0.157, 'w*', markersize=10)
 ylim(0.05)
 xlabel('$\\mu$')
 ylabel('$\\sigma$')
@@ -53,10 +53,10 @@ for i in xrange(0, post.shape[0]):
 		predictive += post[i, j]/(sigma[i, j]*sqrt(2.*pi))*exp(-0.5*((mu[0, :] - mu[i, j])/sigma[i, j])**2)
 
 plot(mu[0, :], predictive, 'r--', linewidth=2, label='Predictive distribution for new $\\bar{\\tau}$')
-xlim([0, 3])
+xlim([-2, 2])
 legend(loc = 'upper left')
 ylabel('Probability Density', fontsize=18)
-xlabel('$\\mu$,  log$_{10}(\\bar{\\tau})$', fontsize=20)
+xlabel('$\\mu$,  log$_{10}(\\bar{\\tau}/(\\textnormal{1 day}))$', fontsize=20)
 savefig('posterior2.pdf', bbox_inches='tight')
 show()
 
