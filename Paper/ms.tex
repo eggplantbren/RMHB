@@ -273,8 +273,8 @@ line data). The position of each spike depends on the time between the continuum
 data point and the line data point, and the mass of each spike is proportional
 to the continuum and line fluxes.
 
-The stacked cross-correlation function for $N$ objects is the mean of the CCFs
-of the individual objects, after normalising each object's CCF to unity.
+The stacked cross-correlation function for $N$ objects is sum of the CCFs
+of the individual objects.
 \begin{eqnarray}
 \textnormal{SCCF}(\tau) &=&
 \frac{1}{N} \sum_{i=1}^N
@@ -282,10 +282,8 @@ of the individual objects, after normalising each object's CCF to unity.
 \frac{\textnormal{CCF}_i(\tau)}{\int \textnormal{CCF}_i(\tau) \, d\tau}
 \right)
 \end{eqnarray}
-Since the CCF definition involves delta-functions, some smoothing is necessary
-to display the stacked CCF. In Figure~\ref{fig:ccf},
-we show the stacked CCF from the 100 simulated AGN data sets, plotted as a
-histogram (the nonzero bin width provides the smoothing).
+In Figure~\ref{fig:ccf},
+we show the stacked CCF from the 100 simulated AGN data sets.
 
 \begin{figure}
 \begin{center}
