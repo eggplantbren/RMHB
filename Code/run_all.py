@@ -1,13 +1,44 @@
 from pylab import *
 
-
 rc("font", size=16, family="serif", serif="Computer Sans")
 rc("text", usetex=True)
 
-def simulate_data(which=0, numpoints=5):
+def ccf(data1, data2, log10_tau, delta=0.1):
+	"""
+	Get the cross-correlation between log10_tau and log10_tau + delta
+	"""
+	s = 0.
+	c_bar = data1[:,1].mean()
 
-	lags = []
-	weights = []
+	nl = data2.shape[0]
+
+	# Loop over line measurements
+	for j in xrange(0, nl):
+
+		# Calculate mean line flux, excluding current point
+		which = ones(nl)
+		which[j] = 0.
+		which = which.astype('bool')
+		l_bar = data2[which,1].mean()
+
+		# Time difference between all continuum measurements
+		dd = data2[0,j] - data1[:,0]
+
+		# Find those within the bin
+		include = nonzero(logical_and(dd >= 10.**log10_tau,
+					dd < 10.**(log10_tau + delta)))[0]
+
+		if len(include) >= 1:
+			for ii in include:
+				s += ((nl - 1.)/nl*(data1[ii, 1] - c_bar)*
+						(data2[j, 1] - l_bar))/len(include)
+	return s
+
+
+
+def simulate_data(which=0, numpoints=5):
+#	log10_tau = linspace(-3, 3, 101)
+#	sccf = zeros(log10_tau.size)
 
 	for k in xrange(0, 100):
 		# Make the first time series
@@ -51,10 +82,18 @@ def simulate_data(which=0, numpoints=5):
 			savetxt('data1.txt', data1)
 			savetxt('data2.txt', data2)
 
-		for ii in xrange(0, data1.shape[0]):
-			for jj in xrange(0, data2.shape[0]):
-				lags.append(data2[jj, 0] - data1[ii, 0])
-				weights.append((data1[ii, 1] - mean(data1[:,1]))*(data2[jj, 1] - mean(data2[:,1])))
+#		for ii in xrange(0, log10_tau.size):
+#			sccf[ii] += ccf(data1, data2, log10_tau[ii],
+#					delta=log10_tau[1] - log10_tau[0])
+#		if k==99:
+#			bar(log10_tau - 1., sccf, width=log10_tau[1] - log10_tau[0],
+#						alpha=0.2)
+#			xlabel(r'$\log_{10}(\tau/(\textnormal{1 day}))$')
+#			ylabel('Stacked CCF')
+#			xlim([0, 2])
+#			axhline(0, color='k')
+#			savefig('ccf.pdf', bbox_inches='tight')
+#			show()
 
 #		if k < 3:
 #			subplot(3, 1, k+1)
@@ -71,20 +110,6 @@ def simulate_data(which=0, numpoints=5):
 #				legend(loc='lower left', numpoints=1)
 #				savefig('data.pdf', bbox_inches='tight')
 #				show()
-
-#	lags = array(lags)
-#	weights = array(weights)
-
-#	_lags = lags[abs(lags - 150) < 150]
-#	_weights = weights[abs(lags - 150) < 150]
-
-#	hist(log10(_lags/10), 100, weights=_weights, alpha=0.25)
-#	xlim([0, 1.5])
-#	ylim(0)
-#	xlabel('$\\log_{10}(\\tau/(\\textnormal{1 day}))$')
-#	ylabel('Stacked Cross-Correlation Function')
-#	savefig('ccf.pdf', bbox_inches='tight')
-#	show()
 
 import os
 seed(123)
