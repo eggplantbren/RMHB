@@ -14,7 +14,6 @@ def ccf(data1, data2, log10_tau, delta=0.1):
 
 	# Loop over line measurements
 	for j in xrange(0, nl):
-
 		# Calculate mean line flux, excluding current point
 		which = ones(nl)
 		which[j] = 0.
@@ -22,7 +21,7 @@ def ccf(data1, data2, log10_tau, delta=0.1):
 		l_bar = data2[which,1].mean()
 
 		# Time difference between all continuum measurements
-		dd = data2[0,j] - data1[:,0]
+		dd = data2[j,0] - data1[:,0]
 
 		# Find those within the bin
 		include = nonzero(logical_and(dd >= 10.**log10_tau,
@@ -37,7 +36,7 @@ def ccf(data1, data2, log10_tau, delta=0.1):
 
 
 def simulate_data(which=0, numpoints=5):
-#	log10_tau = linspace(-3, 3, 101)
+#	log10_tau = linspace(-3, 3, 301)
 #	sccf = zeros(log10_tau.size)
 
 	for k in xrange(0, 100):
@@ -82,9 +81,12 @@ def simulate_data(which=0, numpoints=5):
 			savetxt('data1.txt', data1)
 			savetxt('data2.txt', data2)
 
+#		temp = zeros(log10_tau.size)
 #		for ii in xrange(0, log10_tau.size):
-#			sccf[ii] += ccf(data1, data2, log10_tau[ii],
+#			temp[ii] = ccf(data1, data2, log10_tau[ii],
 #					delta=log10_tau[1] - log10_tau[0])
+#		sccf += temp
+
 #		if k==99:
 #			bar(log10_tau - 1., sccf, width=log10_tau[1] - log10_tau[0],
 #						alpha=0.2)
