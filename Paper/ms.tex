@@ -251,27 +251,15 @@ for three illustrative data sets from the sample.
 \end{center}
 \end{figure}
 
-The cross-correlation function for a single object is defined as follows. First,
-the mean levels $\bar{y}$ and $\bar{l}$ of the continuum and line light curves,
-are calculated (weighted by the reported size of the error bars on each
-measurement):
+The cross-correlation function for a single object is defined as
+in \citet{2012MNRAS.427.2701F}. For a lag bin between $\tau$ and $\tau + \delta$
+the amount of cross correlation is calculated using
 \begin{eqnarray}
-\bar{y} &=& \frac{\sum_{i=1}^{N_c} \left(y_i/\sigma_{y_i}^2\right)}{\sum_{i=1}^{N_c} \left(1/\sigma_{y_i}^2\right)}\\
-\bar{l} &=& \frac{\sum_{i=1}^{N_l} \left(l_i/\sigma_{l_i}^2\right)}{\sum_{i=1}^{N_l} \left(1/\sigma_{l_i}^2\right)}
+X \\= \sum_{i=1}^{N_y}\sum_{j=1}^{N_l}
+\left(y_i - \bar{y}\right)
+\left(l_j - \bar{l}\right)
+\mathds{1}\left((t_{l_j} - t_{y_i}) \in [\tau, \tau + \delta]\right)
 \end{eqnarray}
-
-The cross correlation function, as a function of lags $\tau$, is then defined as:
-\begin{eqnarray}
-\textnormal{CCF}(\tau) =
-\sum_{i=1}^{N_c} \sum_{j=1}^{N_l}
-\left(\frac{(y_i - \bar{y})(l_j - \bar{l})}{\sigma_{y_i}^2\sigma_{l_j}^2}
-\delta\left[\tau - (t_{l_j} - t_{y_i})\right]\right)
-\end{eqnarray}
-This can be understood as a set of delta-function spikes, one for each pair
-of points (one point chosen from the continuum data, and one point from the
-line data). The position of each spike depends on the time between the continuum
-data point and the line data point, and the mass of each spike is proportional
-to the continuum and line fluxes.
 
 The stacked cross-correlation function for $N$ objects is sum of the CCFs
 of the individual objects.
