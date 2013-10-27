@@ -47,6 +47,10 @@ p = post.sum(axis=0)
 p /= trapz(p, x=mu[0, :])
 plot(mu[0, :], p, 'b', linewidth=2, label='Posterior distribution for $\\mu$')
 
+m1 = trapz(p*mu[0, :], x=mu[0, :])
+m2 = trapz(p*mu[0, :]**2, x=mu[0, :])
+print(m1, sqrt(m2 - m1**2))
+
 predictive = zeros(mu[0, :].shape)
 for i in xrange(0, post.shape[0]):
 	for j in xrange(0, post.shape[1]):
@@ -58,5 +62,12 @@ legend(loc = 'upper left')
 ylabel('Probability Density', fontsize=18)
 xlabel('$\\mu$,  log$_{10}(\\bar{\\tau}/(\\textnormal{1 day}))$', fontsize=20)
 savefig('posterior2.pdf', bbox_inches='tight')
+
+
+m1 = trapz(predictive*mu[0, :], x=mu[0, :])
+m2 = trapz(predictive*mu[0, :]**2, x=mu[0, :])
+print(m1, sqrt(m2 - m1**2))
+
+
 show()
 
