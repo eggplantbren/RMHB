@@ -251,6 +251,7 @@ for three illustrative data sets from the sample.
 \end{center}
 \end{figure}
 
+We computed the stacked cross-correlation function for the 100 data sets.
 The cross-correlation function for a single object is defined as
 in \citet{2012MNRAS.427.2701F}. For a lag bin between $\tau$ and $\tau + \delta$
 the amount of cross correlation is calculated by looping over pairs of points
@@ -266,22 +267,65 @@ X(\tau; \delta) =\\ \frac{\sum_{i=1}^{N_y}\sum_{j=1}^{N_l}
 \mathds{1}\left((t_{l_j} - t_{y_i}) \in [\tau, \tau + \delta]\right)}
 \end{eqnarray}
 The denominator is the number of pairs of points that fall within the lag range
-being considered, $[\tau, \tau + \delta]$.
+being considered, $[\tau, \tau + \delta]$, denoted $n_{\rm pair}$ by
+\citet{2012MNRAS.427.2701F}.
 The stacked cross-correlation function for $N$ objects is sum of the CCFs
 of the individual objects. In Figure~\ref{fig:ccf}, we show the stacked CCF
-from our 100 simulated AGN data sets.
+from our 100 simulated AGN data sets. There is a clear peak around 10 days.
+
+\begin{figure}
+\begin{center}
+\includegraphics[scale=0.4]{Figures/ccf.eps}
+\caption{The stacked cross-correlation function of the simulated data.
+A clear peak is seen around $\tau \approx 10$ days, but the stacked CCF has a
+large width. It is difficult to interpret the cause of this width, and to
+determine whether the width is due to uncertainty or diversity in the sample
+of AGN. These difficulties motivate the hierarchical Bayesian model.
+\label{fig:ccf}}
+\end{center}
+\end{figure}
+
+As the data does not contain measurements at all possible time lags, the stacked
+CCF will always require some smoothing. Here, the smoothing is supplied by the
+choice of a bin width $\delta$. The stacked CCF has a substantial width. One
+weakness of the stacked CCF method is that it is not clear whether this width
+is caused by real diversity in the sample of AGN, or whether it is simply caused
+by the difficulty in measuring the lag $\bar{\tau}$ of an object with such
+sparse data. By contrast, the hierarchical Bayesian approach clearly separates
+these two concepts. The diversity of the population is quantified by $\sigma$,
+whereas uncertainty about the central value $\mu$ is described by the
+posterior distribution for $\mu$.
+
+To implement the hierarchical Bayesian approach on the simulated data, we first
+used the single-object model on each object. The results for three objects
+(the same three objects shown in Figure~\ref{fig:data}) are plotted in
+Figure~\ref{fig:example_posteriors}. Due to the sparse data, there is a large
+amount of uncertainty about the value of $\bar{\tau}$ for each system. Some
+objects do not allow any real measurement of $\bar{\tau}$, but some do, as a
+result of fortuitous variability of the continuum.
 
 \begin{figure}
 \begin{center}
 \includegraphics[scale=0.5]{Figures/example_posteriors.eps}
 \caption{Samples from the posterior distribution for $\log_{10}(\bar{\tau})$
 for three objects, each analysed separately with the single-object model. For
-the first object, there is a moderate ``detection'' of a lag at about 10 days.
+the first object, there is a moderate ``detection'' of a lag at about 10 days
+(although there is a small second mode above 100 days, which can be understood
+by inspecting the data in Figure~\ref{fig:data}).
 The second object yielded an upper limit, and the third object's lag was
 not well inferred.
 \label{fig:example_posteriors}}
 \end{center}
 \end{figure}
+
+Finally, we combined the results from the single-object model into an inference
+about hyperparameters $\mu$ and $\sigma$ describing the central value and
+the diversity of $\bar{\tau}$ respectively, using the result of
+Equation~\ref{eq:individual}. The joint posterior distribution for $\mu$ and
+$\sigma$ is shown in Figure~\ref{fig:posterior}. The prior for $\mu$ and $\sigma$
+was uniform inside the rectangle shown, and the posterior distribution covers
+a much smaller area, indicating that the data contained a lot of information
+about the hyperparameters.
 
 \begin{figure}
 \begin{center}
@@ -289,9 +333,13 @@ not well inferred.
 \caption{The joint posterior distribution for $\mu$ and $\sigma$, hyperparameters
 describing the distribution of $\bar{\tau}$ values in the sample. The prior
 distribution was uniform over the area shown.
-The true solution is indicated by the white circle.\label{fig:posterior}}
+The true solution is indicated by the white star symbol.\label{fig:posterior}}
 \end{center}
 \end{figure}
+
+The marginal distribution for $\mu$ is shown in Figure~\ref{fig:posterior2}
+along with the posterior predictive distribution for the ``next'' $\bar{\tau}$
+value.
 
 \begin{figure}
 \begin{center}
@@ -303,14 +351,9 @@ $\log_{10}\left(\bar{\tau}\right)$, is plotted as the solid line.
 \end{center}
 \end{figure}
 
-\begin{figure}
-\begin{center}
-\includegraphics[scale=0.4]{Figures/ccf.eps}
-\caption{The stacked cross-correlation function of the simulated data.
-\label{fig:ccf}}
-\end{center}
-\end{figure}
-
+\section{Conclusions}
+Reverberation mapping is an important, yet observationally intensive, technique
+in studies of active galaxies.
 
 
 \section*{Acknowledgements}
