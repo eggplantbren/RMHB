@@ -54,9 +54,9 @@ cross-correlation technique. We find that our inferences are more precise and
 allow for more straightforward interpretation than the cross-correlation
 technique.
 \end{abstract}
-galaxies:active --- methods: data analysis
-\begin{keywords}
 
+\begin{keywords}
+galaxies:active --- methods: data analysis
 \end{keywords}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -253,30 +253,33 @@ for three illustrative data sets from the sample.
 
 The cross-correlation function for a single object is defined as
 in \citet{2012MNRAS.427.2701F}. For a lag bin between $\tau$ and $\tau + \delta$
-the amount of cross correlation is calculated using
+the amount of cross correlation is calculated by looping over pairs of points
+(one selected from the continuum data set, and another from the line data set),
+and accumulating mass when the lag between the two points is between $\tau$
+and $\tau + \delta$.
 \begin{eqnarray}
-X \\= \sum_{i=1}^{N_y}\sum_{j=1}^{N_l}
+X(\tau; \delta) =\\ \frac{\sum_{i=1}^{N_y}\sum_{j=1}^{N_l}
 \left(y_i - \bar{y}\right)
 \left(l_j - \bar{l}\right)
-\mathds{1}\left((t_{l_j} - t_{y_i}) \in [\tau, \tau + \delta]\right)
+\mathds{1}\left((t_{l_j} - t_{y_i}) \in [\tau, \tau + \delta]\right)}
+{\sum_{i=1}^{N_y}\sum_{j=1}^{N_l}
+\mathds{1}\left((t_{l_j} - t_{y_i}) \in [\tau, \tau + \delta]\right)}
 \end{eqnarray}
-
+The denominator is the number of pairs of points that fall within the lag range
+being considered, $[\tau, \tau + \delta]$.
 The stacked cross-correlation function for $N$ objects is sum of the CCFs
-of the individual objects.
-\begin{eqnarray}
-\textnormal{SCCF}(\tau) &=&
-\frac{1}{N} \sum_{i=1}^N
-\left(
-\frac{\textnormal{CCF}_i(\tau)}{\int \textnormal{CCF}_i(\tau) \, d\tau}
-\right)
-\end{eqnarray}
-In Figure~\ref{fig:ccf},
-we show the stacked CCF from the 100 simulated AGN data sets.
+of the individual objects. In Figure~\ref{fig:ccf}, we show the stacked CCF
+from our 100 simulated AGN data sets.
 
 \begin{figure}
 \begin{center}
 \includegraphics[scale=0.5]{Figures/example_posteriors.eps}
-\caption{\label{fig:example_posteriors}}
+\caption{Samples from the posterior distribution for $\log_{10}(\bar{\tau})$
+for three objects, each analysed separately with the single-object model. For
+the first object, there is a moderate ``detection'' of a lag at about 10 days.
+The second object yielded an upper limit, and the third object's lag was
+not well inferred.
+\label{fig:example_posteriors}}
 \end{center}
 \end{figure}
 
