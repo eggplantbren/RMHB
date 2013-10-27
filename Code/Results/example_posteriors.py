@@ -7,6 +7,8 @@ rc("text", usetex=True)
 
 bins = linspace(-4., 2., 31)
 
+figure(figsize=(8, 9))
+
 for i in xrange(0, 3):
 	sample = loadtxt(str(i) + '.txt')
 	subplot(3,1,i+1)

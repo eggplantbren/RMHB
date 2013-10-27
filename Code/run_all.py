@@ -97,10 +97,12 @@ def simulate_data(which=0, numpoints=5):
 #			savefig('ccf.pdf', bbox_inches='tight')
 #			show()
 
+#		if k==0:
+#			figure(figsize=(8, 9))
 #		if k < 3:
 #			subplot(3, 1, k+1)
-#			errorbar(data1[:,0]/10, data1[:,1], yerr=data1[:,2], fmt='bo', markersize=1, label='Continuum')
-#			errorbar(data2[:,0]/10, data2[:,1], yerr=data2[:,2], fmt='ro', markersize=1, label='Line')
+#			errorbar(data1[:,0]/10, data1[:,1], yerr=data1[:,2], fmt='bo', markersize=3, label='Continuum')
+#			errorbar(data2[:,0]/10, data2[:,1], yerr=data2[:,2], fmt='r*', markersize=5, label='Line')
 #			gca().set_yticks([0, 20, 40, 60])
 
 #			if k == 1:
