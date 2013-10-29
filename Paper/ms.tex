@@ -248,7 +248,7 @@ p(y_i | y_{i-1},  \mu, a, \beta) \sim \mathcal{N}
 for $i \geq 2$. This is the discrete AR(1) model from time series theory.
 $\mu$ describes the mean level of the continuum light curve, $\beta$ controls
 the size of the short-term fluctuations, and $a$ controls the correlation
-timescale.
+timescale (the timescale is given by $L = -1/\log(a)$).
 
 For the likelihood (or sampling distribution, really the prior for the data
 given the parameters) we made the conventional gaussian assumption:
@@ -257,12 +257,23 @@ Y_i &\sim& \mathcal{N}\left(y(t_{y_i}), \sigma_{y_i}^2\right)\\
 L_i &\sim& \mathcal{N}\left(l(t_{l_i}), \sigma_{l_i}^2\right)
 \end{eqnarray}
 
+We chose a log-uniform prior for $L$ (the AGN variability timescale)
+between $1$ and $10^6$ days, a log-uniform
+prior for $\beta$ (the size of the short-term fluctuations)
+between $10^{-3}$ and $10^3$ flux units, a Cauchy(0, 100)
+prior for $\mu$ (the mean flux level of the AGN), a log-uniform prior for $b$
+(the upper limit of the transfer function) between $10^{-3}$ and $10^3$ days,
+a uniform prior for $a$ (the lower limit of the transfer function)
+between 0 and $b$, a log-uniform prior between
+$10^{-3}$ and $10^3$ for the response coefficient $A$ and a Cauchy(0, 100) prior
+for the second response parameter $C$.
+
 To implement the MCMC for a single object,
 we implemented our model in the STAN sampler \citep{nuts}
 and Diffusive Nested Sampling \citep{dnest}. Due to the large number of
-parameters and some very strong correlations in the posterior distribution,
+parameters, multiple modes, and strong correlations in the posterior distribution,
 we found that Diffusive Nested Sampling was more effective than STAN.
-Note the single-object model is already an improvement over standard
+Note that our single-object model is already an improvement over standard
 cross-correlation techniques and is similar to the approach used by
 \citep{2011ApJ...735...80Z}.
 
