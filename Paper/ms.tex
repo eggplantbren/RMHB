@@ -51,8 +51,8 @@ The results are combined to infer properties of the sample of
 AGN. In this letter we implement this method using a hierarchical
 Bayesian model and contrast this with the results from the previous stacked
 cross-correlation technique. We find that our inferences are more precise and
-allow for more straightforward interpretation than the cross-correlation
-technique.
+allow for more straightforward interpretation than the stacked cross-correlation
+results.
 \end{abstract}
 
 \begin{keywords}
@@ -66,61 +66,64 @@ Reverberation mapping (RM) is an important technique for the study
 of active galactic nuclei (AGN). The technique is based on the temporal
 fluctuations of the central continuum source, and the subsequent response
 of the broad line region (BLR) emission. The time delay between the continuum
-and the broad line fluctuations provides an estimate of the size of the BLR
-\citep{peterson}.
+and the broad line fluctuations provides an estimate of the size of the BLR,
+and can also be used to estimate the black hole mass \citep{peterson}.
 
-RM is a observationally intensive, requiring observations over a period of
+RM is a observationally intensive, requiring observations of an AGNN
+over a period of
 a few tens of days \citep{2013ApJ...769..128B}. As a result, many authors have
 studied the data analysis techniques involved in RM, and substantial
 advances have been made in recent years.
-The methods introduced range from those that attempt to infer the
+The data analysis methods introduced range from those that attempt to infer the
 transfer function \citep[the distribution of lags in a single object,
 e.g.][]{1995ApJ...440..166K, 2011ApJ...735...80Z},
 the velocity-resolved transfer function
 \citep{2010ApJ...720L..46B}, or the physical structure of the BLR itself
 \citep{pancoast, arp151, pancoast2, 2013arXiv1310.3907L}.
 
-There are many subtleties involved in reverberation mapping, that we will ignore
-for the purposes of this letter. We note them here for completeness. Firstly,
+There are many subtleties and challenges involved in reverberation mapping,
+that we will ignore
+for the purposes of this letter. We note two of them here for completeness. Firstly,
 the mean lag $\bar{\tau} = \int \tau\Psi(\tau)\, d\tau$, where $\Psi(\tau)$
 is the normalised transfer function, is not equal to $c$ times the mean radius of the BLR
 distribution, $\bar{r} = \int \sqrt{x^2+y^2+z^2}\rho(x, y, z)\, d^3 \mathbf{x}$.
 Secondly, the mean lag $\bar{\tau}$ is not equivalent to the peak of the
 cross-correlation function, except in the case of very narrow
 transfer functions. Direct physical modelling of the BLR resolves these
-issues \citep{pancoast, arp151}.
+issues \citep{pancoast, arp151, 2013arXiv1310.3907L}.
 
 Recently, \citet{2012MNRAS.427.2701F, 2013MNRAS.434L..16F} introduced an
 innovative approach to reverberation mapping where the results from multiple
 AGN can be combined to yield inferences about the entire sample of AGN,
 despite the fact that the constraints on any individual AGN are poor. Rather
 than accurately measuring $\tau$ in a single object, it is possible to roughly
-measure $\tau$ for a large number of objects, and to infer properties about
+measure $\tau$ for a large number of objects (for example, by only measuring
+the BLR emission line flux at two epochs), and to infer properties about
 the distribution of $\tau$ values in the sample of objects (and hence in
 a broader population, if the sample can be considered representative).
+The data analysis approach of \citet{2012MNRAS.427.2701F} was based on an
+extension of the traditional cross-correlation method to $N$ separate objects.
+By ``stacking'' the cross-correlation functions (CCFs) from the $N$ objects in
+the sample, a peak appears which indicates a typical lag value in the sample
+of AGN. However, this peak is difficult to interpret. Specifically, the width
+of the peak may be influenced either by uncertainty (due to the sparse data)
+or due to a wide range of lags being present in the sample (i.e. the sample of
+AGN is diverse).
 
-We implement this idea with a Bayesian hierarchical model
-\citep{2012arXiv1208.3036L}.
-These models are becoming increasingly common in astrophysics and have been
-used in a variety of different fields
-\citep[e.g.][]{loredo, kelly, extreme_deconvolution, 2012AJ....143...90S, 2013arXiv1310.5177B, 2013AJ....146....7B}.
+In this letter, we revisit the idea of ``stacked'' reverberation mapping (i.e.
+using a sample of AGN with sparse data to infer something about the sample)
+from a Bayesian perspective. We develop a Bayesian hierarchical model
+\citep{loredo, kelly, extreme_deconvolution, 2012AJ....143...90S, 2012arXiv1208.3036L, 2013arXiv1310.5177B, 2013AJ....146....7B}.
+which allows us to measure 
 
-\section{Model Assumptions}
-If the continuum light curve of an AGN
-is described by a function $y(t)$, then the line
-light curve $l(t)$ is given by
-\begin{eqnarray}
-l(t) &=& A \int_\tau \Psi(\tau)\left[y(t - \tau) + C\right] \, d\tau
-\end{eqnarray}
-where $\Psi(\tau)$ is the transfer function (assumed to be normalised),
-and $A$ and $C$ are response
-coefficients. The idea of reverberation mapping is to use noisy measurements
-of $y(t)$ and $l(t)$ to infer the transfer function $\Psi(\tau)$ or a summary
-of it such as the mean lag $\bar{\tau} = \int \tau\Psi(\tau) \, d\tau$.
-Throughout this letter we consider $y(t)$ and $l(t)$ in flux
-units, as opposed to magnitudes.
+In Section~\ref{sec:multiple} we discuss the general principles needed
+to combine information from multiple poorly-measured objects.
+In Section~\ref{sec:single_object} we discuss the methods used to infer the lag
+$\tau$ using RM data for a single AGN. We then demonstrate the technique
+on simulated data in Section~\ref{sec:data}, and conclude in
+Section~\ref{sec:conclusions}.
 
-\section{Combining Inferences About Multiple Objects}
+\section{Combining Inferences About Multiple Objects}\label{sec:multiple}
 Consider a sample of $N$ objects, each of which has parameters $\theta_i$.
 If the $i$th object is analysed on its own, the inference about 
 its parameters $\theta_i$ is described by a posterior distribution
@@ -176,6 +179,24 @@ to reconstruct the results that would be obtained if we did analyse all
 objects together with a hierarchical prior on the $\theta_i$ parameters.
 
 \section{The Single Object Model}\label{sec:single_object}
+
+\section{Model Assumptions}
+If the continuum light curve of an AGN
+is described by a function $y(t)$, then the line
+light curve $l(t)$ is given by
+\begin{eqnarray}
+l(t) &=& A \int_\tau \Psi(\tau)\left[y(t - \tau) + C\right] \, d\tau
+\end{eqnarray}
+where $\Psi(\tau)$ is the transfer function (assumed to be normalised),
+and $A$ and $C$ are response
+coefficients. The idea of reverberation mapping is to use noisy measurements
+of $y(t)$ and $l(t)$ to infer the transfer function $\Psi(\tau)$ or a summary
+of it such as the mean lag $\bar{\tau} = \int \tau\Psi(\tau) \, d\tau$.
+Throughout this letter we consider $y(t)$ and $l(t)$ in flux
+units, as opposed to magnitudes.
+
+
+
 The posterior distribution for the mean lag $\bar{\tau}$ of a single object
 $i$ may be obtained
 by fitting the following model. We assume, for simplicity, that
@@ -232,7 +253,7 @@ Note the single-object model is already an improvement over standard
 cross-correlation techniques and is similar to the approach used by
 \citep{2011ApJ...735...80Z}.
 
-\section{Demonstration on Simulated Data}
+\section{Demonstration on Simulated Data}\label{sec:data}
 To test our hierarchical model, and compare it to the stacked cross-correlation
 function, we simulated data from 100 AGN. The data for each object was
 continuum flux measurements, once per day, for 100 days. The continuum fluxes
@@ -352,7 +373,7 @@ $\log_{10}\left(\bar{\tau}\right)$, is plotted as the solid line.
 \end{center}
 \end{figure}
 
-\section{Conclusions}
+\section{Conclusions}\label{sec:conclusions}
 Reverberation mapping is an important, yet observationally intensive, technique in studies of active galaxies. 
 
 
