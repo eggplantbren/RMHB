@@ -286,13 +286,17 @@ standard deviation of the measurement noise is 1 (i.e. 2\%). The line data is me
 only two days, with times selected from a uniform distribution between $t=50$
 and $t=100$ days (i.e. corresponding to the latter half of the continuum data).
 The flux of the line data is scaled to half that of the line data, and the
-measurement noise is 0.25, or 1\%, on the line data. See Figure~\ref{fig:data}
+measurement noise for the line data is 0.25, or 1\%. See Figure~\ref{fig:data}
 for three illustrative data sets from the sample.
 
 \begin{figure}
 \begin{center}
 \includegraphics[scale=0.5]{Figures/data.eps}
-\caption{Three simulated data sets, out of a total of 100.\label{fig:data}}
+\caption{Three simulated data sets, out of a total of 100. It is difficult to
+infer the lag $\bar{\tau}$ for any of these objects (although there is some
+information available). See Figure~\ref{fig:example_posteriors} for the
+$\bar{\tau}$ posterior distributions for these three data sets.
+\label{fig:data}}
 \end{center}
 \end{figure}
 
@@ -316,7 +320,9 @@ being considered, $[\tau, \tau + \delta]$, denoted $n_{\rm pair}$ by
 \citet{2012MNRAS.427.2701F}.
 The stacked cross-correlation function for $N$ objects is sum of the CCFs
 of the individual objects. In Figure~\ref{fig:ccf}, we show the stacked CCF
-from our 100 simulated AGN data sets. There is a clear peak around 10 days.
+(on a log scale) from our 100 simulated AGN data sets.
+There is a clear peak around 10 days, and the full width at half maximum,
+while not strictly well defined, is roughly 0.25 dex.
 
 \begin{figure}
 \begin{center}
@@ -337,9 +343,7 @@ weakness of the stacked CCF method is that it is not clear whether this width
 is caused by real diversity in the sample of AGN, or whether it is simply caused
 by the difficulty in measuring the lag $\bar{\tau}$ of an object with such
 sparse data. By contrast, the hierarchical Bayesian approach clearly separates
-these two concepts. The diversity of the population is quantified by $\sigma$,
-whereas uncertainty about the central value $\mu$ is described by the
-posterior distribution for $\mu$.
+these two concepts.
 
 To implement the hierarchical Bayesian approach on the simulated data, we first
 used the single-object model on each object. The results for three objects
@@ -366,11 +370,22 @@ not well inferred.
 Finally, we combined the results from the single-object model into an inference
 about hyperparameters $\mu$ and $\sigma$ describing the central value and
 the diversity of $\bar{\tau}$ respectively, using the result of
-Equation~\ref{eq:individual}. The joint posterior distribution for $\mu$ and
-$\sigma$ is shown in Figure~\ref{fig:posterior}. The prior for $\mu$ and $\sigma$
+Equation~\ref{eq:individual}. Since lags $\bar{\tau}$ are positive, 
+our assumption for the prior on $\bar{\tau}$ given
+the hyperparameters is a lognormal distribution with median $\mu$ and
+width (standard deviation of $\log(\bar{\tau})$) $\sigma$:
+\begin{eqnarray}
+\log(\bar{\tau}) \sim \mathcal{N}(\log(\mu), \sigma^2)
+\end{eqnarray}
+
+The joint posterior distribution for $\mu$ and
+$\sigma$, given the data from $N=100$ AGN,
+is shown in Figure~\ref{fig:posterior}. The prior for $\mu$ and $\sigma$
 was uniform inside the rectangle shown, and the posterior distribution covers
 a much smaller area, indicating that the data contained a lot of information
-about the hyperparameters.
+about the hyperparameters. The true values used to generate the simulated data
+are denoted by the star symbol in Figure~\ref{fig:posterior},
+and is typical of the posterior distribution, as it should be.
 
 \begin{figure}
 \begin{center}
@@ -382,10 +397,12 @@ The true solution is indicated by the white star symbol.\label{fig:posterior}}
 \end{center}
 \end{figure}
 
-The marginal distribution for $\mu$ is shown in Figure~\ref{fig:posterior2}
+The marginal posterior distribution for $\mu$ is shown in Figure~\ref{fig:posterior2}
 along with the posterior predictive distribution for the ``next'' $\bar{\tau}$ value. The inference about $\mu$ can be summarised as
 $\mu = 0.892 \pm 0.033$, and the prediction about $\log_{10}(\bar{\tau})$
-may be summarised as $\log_{10}(\bar{\tau}) = 0.892 \pm 0.160$.
+may be summarised as $\log_{10}(\bar{\tau}) = 0.892 \pm 0.160$. The Bayesian
+approach has clearly separated the uncertainty about $\mu$ from the diversity of the
+sample, described by $\sigma$.
 
 \begin{figure}
 \begin{center}
@@ -398,8 +415,27 @@ $\log_{10}\left(\bar{\tau}\right)$, is plotted as the solid line.
 \end{figure}
 
 \section{Conclusions}\label{sec:conclusions}
-Reverberation mapping is an important, yet observationally intensive, technique in studies of active galaxies. 
+Reverberation mapping is an important, yet observationally intensive,
+technique in studies of active galaxies. This has motivated substantial
+research into RM data analysis techniques, as well as less costly observing
+strategies. The recent approach of \citet{2012MNRAS.427.2701F} demonstrated
+that it is possible to combine information from many sparsely-measured AGN
+and infer properties of the sample rather than insisting on accurate results
+about a particular object.
 
+In this letter we extended the approach of \citet{2012MNRAS.427.2701F} by
+implementing a Bayesian hierarchical model for the data analysis. The main
+advantage of this approach is a clear interpretation of the output, which is
+a posterior distribution for hyperparameters describing the sample of AGN.
+
+We demonstrated this approach on a simulated data set consisting of 100 AGN
+with well-measured continuum light curves but sparsely measured (two epochs per
+AGN) broad line light curves. For the simulated data set we were able to obtain
+an inference on $\mu$, a hyperparameter describing the typical value of the lag,
+to within 0.033 dex (1-$\sigma$ uncertainty), whereas the stacked cross-correlation
+function had a FWHM of $\sim$ 0.25 dex. This is possible because a subset of
+the objects in the sample will have a measureable lag. We hope this approach
+will facilitate informative studies of samples of AGN.
 
 \section*{Acknowledgements}
 It is a pleasure to thank Tommaso Treu, Anna Pancoast (UCSB), and
