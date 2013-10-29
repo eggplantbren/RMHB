@@ -134,7 +134,7 @@ where $\pi(\theta_i)$ is the prior distribution and $p(x_i | \theta_i)$ is the
 likelihood function. If $N$ objects are analysed separately, inferences can
 be made about the diversity of $\theta_i$ across the sample. However, these
 inferences may be incorrect due to the implicit assumption that the prior for
-all of the $\{\theta_i\}$ is independent.
+all of the $\{\theta_i\}$ is independent \citep{2013arXiv1310.5177B}.
 A hierarchical model may be used to overcome this problem.
 Section~\ref{sec:single_object} describes the assumptions used for analysing
 data from a single AGN.
@@ -145,16 +145,30 @@ and the $\{\theta_i\}$ is:
 \begin{eqnarray}
 p(\alpha, \theta_i) &=& p(\alpha)\prod_{i=1}^N p(\theta_i | \alpha)
 \end{eqnarray}
+The implied prior on the $\{\theta_i\}$ parameters is then
+\begin{eqnarray}
+p(\theta_i) &=& \int p(\alpha)\prod_{i=1}^N p(\theta_i | \alpha) \, d\alpha
+\end{eqnarray}
+which may imply that the $\theta$ values are ``clustered'' around some
+typical value.
+
 The posterior distribution for
 $\btheta = \{\theta_1, ..., \theta_N\}$ and the hyperparameters $\alpha$
 given the data 
-$\bx = \{x_1, ..., x_N\}$
-should actually be
+$\bx = \{x_1, ..., x_N\}$, is then
 \begin{eqnarray}
 p(\alpha, \btheta | \bx) &\propto&
 p(\alpha)p(\btheta|\alpha)p(\bx | \btheta, \alpha)\\
 &=& p(\alpha)\prod_{i=1}^N f(\theta_i|\alpha)p(x_i | \theta_i)
 \end{eqnarray}
+
+It is possible to consider the data for all $N$ objects as one big data set
+and infer the parameters of all objects simultaneously. However, this can be
+computationally prohibitive. In some circumstances it is tractable to analyse
+each object's data separately (using a common prior $\pi(\theta_i)$) and
+then post-process the results, reconstructing what the results of the
+hierarchical model would have been. In this letter we use this approach.
+
 The marginal posterior distribution for the hyperparameters $\alpha$ is
 \begin{eqnarray}
 p(\alpha | \bx) &=&
@@ -162,7 +176,7 @@ p(\alpha | \bx) &=&
 &\propto& p(\alpha)\int \prod_{i=1}^N f(\theta_i|\alpha)p(x_i | \theta_i) d^N\theta\\
 &\propto& p(\alpha) \prod_{i=1}^N \int f(\theta_i|\alpha)p(x_i | \theta_i) d\theta_i\\
 &\propto& p(\alpha) \prod_{i=1}^N \int \frac{f(\theta_i|\alpha)}{\pi(\theta)}p(x_i | \theta_i) \pi(\theta_i)d\theta_i\\
-&\propto& p(\alpha) \prod_{i=1}^N \mathds{E}\left[\frac{f(\theta_i|\alpha)}{\pi(\theta)}\right]
+&\propto& p(\alpha) \prod_{i=1}^N \mathds{E}\left[\frac{f(\theta_i|\alpha)}{\pi(\theta)}\right]\label{eq:combine}
 \end{eqnarray}
 where the expectation is taken with respect to the individual object posterior
 of Equation~\ref{eq:individual}, and thus can be estimated using posterior
@@ -170,17 +184,17 @@ samples from the posterior distributions for the individual objects.
 This result enables us to reconstruct the
 posterior distribution for the hyperparameters even though the individual object
 inferences were made without the hierarchical structure in the prior. This is
-essentially an importance sampling approximation to the hierarchical model.
+essentially an importance sampling approximation to the
+full hierarchical model.
 
-Rather than
-analysing all objects together, which can be very computationally expensive,
-we can use the posterior distributions from Equation~\ref{eq:individual}
-to reconstruct the results that would be obtained if we did analyse all
-objects together with a hierarchical prior on the $\theta_i$ parameters.
+In Section~\ref{sec:single_object} we define a simple model for inferring the
+lag of a single AGN from sparse RM data. We will use Markov Chain Monte Carlo
+(MCMC) to produce posterior samples for the lags of the $N$ objects, which can
+then be combined using Equation~\ref{eq:combine} to yield the posterior
+distribution for some hyperparameters describing the distribution of
+lags in the sample.
 
 \section{The Single Object Model}\label{sec:single_object}
-
-\section{Model Assumptions}
 If the continuum light curve of an AGN
 is described by a function $y(t)$, then the line
 light curve $l(t)$ is given by
@@ -193,11 +207,10 @@ coefficients. The idea of reverberation mapping is to use noisy measurements
 of $y(t)$ and $l(t)$ to infer the transfer function $\Psi(\tau)$ or a summary
 of it such as the mean lag $\bar{\tau} = \int \tau\Psi(\tau) \, d\tau$.
 Throughout this letter we consider $y(t)$ and $l(t)$ in flux
-units, as opposed to magnitudes.
+units, as opposed to magnitudes, and consider $\bar{\tau}$ as
+the definition of ``the lag'' of the AGN.
 
-
-
-The posterior distribution for the mean lag $\bar{\tau}$ of a single object
+The posterior distribution for the lag $\bar{\tau}$ of a single object
 $i$ may be obtained
 by fitting the following model. We assume, for simplicity, that
 the transfer function is uniform
