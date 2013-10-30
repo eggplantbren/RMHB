@@ -38,6 +38,7 @@ def ccf(data1, data2, log10_tau, delta=0.1):
 def simulate_data(which=0, numpoints=5):
 #	log10_tau = linspace(-3, 3, 301)
 #	sccf = zeros(log10_tau.size)
+	seed(123)
 
 	for k in xrange(0, 100):
 		# Make the first time series
@@ -116,7 +117,6 @@ def simulate_data(which=0, numpoints=5):
 #				show()
 
 import os
-seed(123)
 import postprocess
 
 for i in xrange(0, 100):
