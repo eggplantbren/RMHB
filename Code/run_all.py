@@ -132,7 +132,7 @@ for i in xrange(0, 100):
 	f.write(o)
 	f.close()
 
-	os.system('./main -t 8')
+	os.system('./main -t 8 -s 0')
 		
 	l = loadtxt('levels.txt')
 	l = l[l[:,1] <= -30., :]
@@ -147,7 +147,7 @@ for i in xrange(0, 100):
 	f.write(o)
 	f.close()
 
-	os.system('./main -t 8 -l levels.txt')
+	os.system('./main -t 8 -s 0 -l levels.txt')
 	postprocess.postprocess(cut=0.3333, plot=False)
 	os.system('cp posterior_sample.txt Results/' + str(i) + '.txt')
 
