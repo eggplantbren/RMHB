@@ -257,12 +257,14 @@ Y_i &\sim& \mathcal{N}\left(y(t_{y_i}), \sigma_{y_i}^2\right)\\
 L_i &\sim& \mathcal{N}\left(l(t_{l_i}), \sigma_{l_i}^2\right)
 \end{eqnarray}
 
+We used vague priors for the parameters of the single-object model. In practice
+these could be made substantially narrower.
 We chose a log-uniform prior for $L$ (the AGN variability timescale)
-between $1$ and $10^6$ days, a log-uniform
+between $0.1$ and $10^5$ days, a log-uniform
 prior for $\beta$ (the size of the short-term fluctuations)
 between $10^{-3}$ and $10^3$ flux units, a Cauchy(0, 100)
 prior for $\mu$ (the mean flux level of the AGN), a log-uniform prior for $b$
-(the upper limit of the transfer function) between $10^{-3}$ and $10^3$ days,
+(the upper limit of the transfer function) between $10^{-4}$ and $10^2$ days,
 a uniform prior for $a$ (the lower limit of the transfer function)
 between 0 and $b$, a log-uniform prior between
 $10^{-3}$ and $10^3$ for the response coefficient $A$ and a Cauchy(0, 100) prior
@@ -370,7 +372,12 @@ not well inferred.
 Finally, we combined the results from the single-object model into an inference
 about hyperparameters $\mu$ and $\sigma$ describing the central value and
 the diversity of $\bar{\tau}$ respectively, using the result of
-Equation~\ref{eq:individual}. Since lags $\bar{\tau}$ are positive, 
+Equation~\ref{eq:individual}. This requires us to know the prior $\pi(\bar{\tau})$
+implied by the simple-object model, since we did not assign the prior directly
+to $\bar{\tau}$. The prior for $\bar{\tau}$ in the single-object model is
+very well approximated by a log-uniform distribution.
+
+Since lags $\bar{\tau}$ are positive, 
 our assumption for the prior on $\bar{\tau}$ given
 the hyperparameters is a lognormal distribution with median $\mu$ and
 width (standard deviation of $\log_{10}(\bar{\tau})$) $\sigma$:
