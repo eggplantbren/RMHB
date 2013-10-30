@@ -127,7 +127,7 @@ for i in xrange(0, 100):
 	f.close()
 
 	o = o.replace('XXX', '500')
-	o = o.replace('YYY', '500')
+	o = o.replace('YYY', '400')
 	f = open('OPTIONS', 'w')
 	f.write(o)
 	f.close()
@@ -148,6 +148,6 @@ for i in xrange(0, 100):
 	f.close()
 
 	os.system('./main -t 8 -s 0 -l levels.txt')
-	postprocess.postprocess(cut=0.3333, plot=False)
+	postprocess.postprocess(cut=0.25, plot=False)
 	os.system('cp posterior_sample.txt Results/' + str(i) + '.txt')
 
