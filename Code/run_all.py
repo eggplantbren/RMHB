@@ -147,7 +147,7 @@ for i in xrange(0, 100):
 	f.write(o)
 	f.close()
 
-	os.system('./main -t 8')
+	os.system('./main -t 8 -l levels.txt')
 	postprocess.postprocess(cut=0.3333, plot=False)
 	os.system('cp posterior_sample.txt Results/' + str(i) + '.txt')
 
