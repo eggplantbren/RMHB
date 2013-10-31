@@ -5,15 +5,15 @@ from pylab import *
 rc("font", size=16, family="serif", serif="Computer Sans")
 rc("text", usetex=True)
 
-bins = linspace(-4., 2., 31)
+bins = linspace(-4., 2., 101)
 
 figure(figsize=(8, 9))
 
 for i in xrange(0, 3):
 	sample = loadtxt(str(i) + '.txt')
 	subplot(3,1,i+1)
-	hist(log10(sample[:,0]/10.), bins=bins, alpha=0.2, normed=True)
-
+	hist(log10(sample[:,0]/10.), bins=bins, normed=True)
+	xlim([-4, 2])
 	gca().set_yticks([])
 
 	if i < 2:
