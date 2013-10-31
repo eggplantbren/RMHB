@@ -89,8 +89,7 @@ def simulate_data(which=0, numpoints=5):
 #		sccf += temp
 
 #		if k==99:
-#			bar(log10_tau - 1., sccf, width=log10_tau[1] - log10_tau[0],
-#						alpha=0.2)
+#			bar(log10_tau - 1., sccf, width=log10_tau[1] - log10_tau[0])
 #			xlabel(r'$\log_{10}(\tau/(\textnormal{1 day}))$')
 #			ylabel('Stacked CCF')
 #			xlim([0, 2])
