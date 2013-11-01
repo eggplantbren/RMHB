@@ -9,8 +9,8 @@
 \usepackage{dsfont}
 
 % Bold symbols
-\renewcommand{\btheta}{\boldsymbol{\theta}}
-\newcommand{\bx}{\boldsymbol{x}}
+\renewcommand{\btheta}{\{\theta_i\}}
+\newcommand{\bx}{\{x_i\}}
 
 % \onecolumn
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -69,7 +69,7 @@ of the broad line region (BLR) emission. The time delay between the continuum
 and the broad line fluctuations provides an estimate of the size of the BLR,
 and can also be used to estimate the black hole mass \citep{peterson}.
 
-RM is a observationally intensive, requiring observations of an AGNN
+RM is a observationally intensive, requiring observations of an AGN
 over a period of
 a few tens of days \citep{2013ApJ...769..128B}. As a result, many authors have
 studied the data analysis techniques involved in RM, and substantial
@@ -86,7 +86,7 @@ that we will ignore
 for the purposes of this letter. We note two of them here for completeness. Firstly,
 the mean lag $\bar{\tau} = \int \tau\Psi(\tau)\, d\tau$, where $\Psi(\tau)$
 is the normalised transfer function, is not equal to $c$ times the mean radius of the BLR
-distribution, $\bar{r} = \int \sqrt{x^2+y^2+z^2}\rho(x, y, z)\, d^3 \mathbf{x}$.
+matter distribution, $\bar{r} = \int \sqrt{x^2+y^2+z^2}\rho(x, y, z)\, d^3 \mathbf{x}$.
 Secondly, the mean lag $\bar{\tau}$ is not equivalent to the peak of the
 cross-correlation function, except in the case of very narrow
 transfer functions. Direct physical modelling of the BLR resolves these
@@ -114,7 +114,8 @@ In this letter, we revisit the idea of ``stacked'' reverberation mapping (i.e.
 using a sample of AGN with sparse data to infer something about the sample)
 from a Bayesian perspective. We develop a Bayesian hierarchical model
 \citep{loredo, kelly, extreme_deconvolution, 2012AJ....143...90S, 2012arXiv1208.3036L, 2013arXiv1310.5177B, 2013AJ....146....7B}.
-which allows us to measure 
+which allows us to calculate the posterior distribution for hyperparameters
+which describe the typical lag, and the diversity of the lags.
 
 In Section~\ref{sec:multiple} we discuss the general principles needed
 to combine information from multiple poorly-measured objects.
@@ -134,28 +135,26 @@ where $\pi(\theta_i)$ is the prior distribution and $p(x_i | \theta_i)$ is the
 likelihood function. If $N$ objects are analysed separately, inferences can
 be made about the diversity of $\theta_i$ across the sample. However, these
 inferences may be incorrect due to the implicit assumption that the prior for
-all of the $\{\theta_i\}$ is independent \citep{2013arXiv1310.5177B}.
+all of the $\btheta$ is independent \citep{2013arXiv1310.5177B}.
 A hierarchical model may be used to overcome this problem.
-Section~\ref{sec:single_object} describes the assumptions used for analysing
-data from a single AGN.
 
-In a hierarchical model, the prior for the parameters $\{\theta_i\}$ is created
+In a hierarchical model, the prior for the parameters $\btheta$ is created
 by introducing hyperparameters $\alpha$ such that the joint prior for $\alpha$
-and the $\{\theta_i\}$ is:
+and the $\btheta$ is:
 \begin{eqnarray}
-p(\alpha, \theta_i) &=& p(\alpha)\prod_{i=1}^N p(\theta_i | \alpha)
+p(\alpha, \btheta) &=& p(\alpha)\prod_{i=1}^N p(\theta_i | \alpha)
 \end{eqnarray}
-The implied prior on the $\{\theta_i\}$ parameters is then
+The implied prior on the $\btheta$ parameters is then
 \begin{eqnarray}
-p(\theta_i) &=& \int p(\alpha)\prod_{i=1}^N p(\theta_i | \alpha) \, d\alpha
+p(\btheta) &=& \int p(\alpha)\prod_{i=1}^N p(\theta_i | \alpha) \, d\alpha
 \end{eqnarray}
 which may imply that the $\theta$ values are ``clustered'' around some
 typical value.
 
 The posterior distribution for
-$\btheta = \{\theta_1, ..., \theta_N\}$ and the hyperparameters $\alpha$
+$\btheta$ and the hyperparameters $\alpha$
 given the data 
-$\bx = \{x_1, ..., x_N\}$, is then
+$\{x_1, ..., x_N\}$, is then
 \begin{eqnarray}
 p(\alpha, \btheta | \bx) &\propto&
 p(\alpha)p(\btheta|\alpha)p(\bx | \btheta, \alpha)\\
@@ -163,11 +162,12 @@ p(\alpha)p(\btheta|\alpha)p(\bx | \btheta, \alpha)\\
 \end{eqnarray}
 
 It is possible to consider the data for all $N$ objects as one big data set
-and infer the parameters of all objects simultaneously. However, this can be
+and infer the hyperparameters $\alpha$ and the parameters of all objects $\btheta$
+simultaneously. However, this can be
 computationally prohibitive. In some circumstances it is tractable to analyse
 each object's data separately (using a common prior $\pi(\theta_i)$) and
 then post-process the results, reconstructing what the results of the
-hierarchical model would have been. In this letter we use this approach.
+hierarchical model would have been. In this letter we use this latter approach.
 
 The marginal posterior distribution for the hyperparameters $\alpha$ is
 \begin{eqnarray}
@@ -185,7 +185,9 @@ This result enables us to reconstruct the
 posterior distribution for the hyperparameters even though the individual object
 inferences were made without the hierarchical structure in the prior. This is
 essentially an importance sampling approximation to the
-full hierarchical model.
+full hierarchical model. One drawback of this approach is that it implies an
+independent (non-hierarchical) prior on any per-object nuisance parameters,
+which can sometimes adversely affect the results \citep[e.g.][]{2013arXiv1310.5177B}.
 
 In Section~\ref{sec:single_object} we define a simple model for inferring the
 lag of a single AGN from sparse RM data. We will use Markov Chain Monte Carlo
@@ -208,7 +210,7 @@ of $y(t)$ and $l(t)$ to infer the transfer function $\Psi(\tau)$ or a summary
 of it such as the mean lag $\bar{\tau} = \int \tau\Psi(\tau) \, d\tau$.
 Throughout this letter we consider $y(t)$ and $l(t)$ in flux
 units, as opposed to magnitudes, and consider $\bar{\tau}$ as
-the definition of ``the lag'' of the AGN.
+the definition of ``the lag'' of an AGN.
 
 The posterior distribution for the lag $\bar{\tau}$ of a single object
 $i$ may be obtained
@@ -219,15 +221,14 @@ between limits $a$ and $b$, where $b > a$:
 \Psi(\tau) &=& \left\{
 \begin{array}{lr}
 \frac{1}{b-a}, & \tau \in [a,b]\\
-0, & \textnormal{otherwise}s
+0, & \textnormal{otherwise}
 \end{array}\right.
 \end{eqnarray}
 and our goal is to measure the mean lag:
 \begin{eqnarray}
 \bar{\tau} &=& \int \tau \Psi(\tau) \, d\tau\\
-&=& \frac{1}{2}(b-a)
+&=& \frac{1}{2}(b-a).
 \end{eqnarray}
-
 Note that inferring $\bar{\tau}$ from the data requires that we
 marginalise over an infinite number of nuisance parameters describing the
 behaviour of $y(t)$ at unobserved times \citep{pancoast}.
@@ -277,7 +278,7 @@ parameters, multiple modes, and strong correlations in the posterior distributio
 we found that Diffusive Nested Sampling was more effective than STAN.
 Note that our single-object model is already an improvement over standard
 cross-correlation techniques and is similar to the approach used by
-\citep{2011ApJ...735...80Z}.
+\citet{2011ApJ...735...80Z}.
 
 \section{Demonstration on Simulated Data}\label{sec:data}
 To test our hierarchical model, and compare it to the stacked cross-correlation
