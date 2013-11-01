@@ -1,3 +1,8 @@
+logfile
+*.ps
+*.pdf
+*.txt
+*.eps
 *.aux
 *.log
 *.dvi
