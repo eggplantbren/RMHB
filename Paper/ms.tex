@@ -309,14 +309,15 @@ the amount of cross correlation is calculated by looping over pairs of points
 (one selected from the continuum data set, and another from the line data set),
 and accumulating mass when the lag between the two points is between $\tau$
 and $\tau + \delta$.
-\begin{eqnarray}
-X(\tau; \delta) =\\ \frac{\sum_{i=1}^{N_y}\sum_{j=1}^{N_l}
+\begin{align}
+& X(\tau; \delta) = \nonumber \\
+& \frac{\sum_{i=1}^{N_y}\sum_{j=1}^{N_l}
 \left(y_i - \bar{y}\right)
 \left(l_j - \bar{l}\right)
 \mathds{1}\left((t_{l_j} - t_{y_i}) \in [\tau, \tau + \delta]\right)}
 {\sum_{i=1}^{N_y}\sum_{j=1}^{N_l}
 \mathds{1}\left((t_{l_j} - t_{y_i}) \in [\tau, \tau + \delta]\right)}
-\end{eqnarray}
+\end{align}
 The denominator is the number of pairs of points that fall within the lag range
 being considered, $[\tau, \tau + \delta]$, denoted $n_{\rm pair}$ by
 \citet{2012MNRAS.427.2701F}.
