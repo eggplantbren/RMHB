@@ -196,6 +196,7 @@ then be combined using Equation~\ref{eq:combine} to yield the posterior
 distribution for some hyperparameters describing the distribution of
 lags in the sample.
 
+\vspace{-0.5cm}
 \section{The Single Object Model}\label{sec:single_object}
 If the continuum light curve of an AGN
 is described by a function $y(t)$, then the line
@@ -298,7 +299,8 @@ with a median value of 10 days, and the standard deviation of $\ln(b)$ was
 0.3. Given $b$, $a$ was simulated from a uniform distribution between $0$ and
 $a$. The resulting distribution of lags $\bar{\tau} = (a+b)/2$ is very well
 approximated by a lognormal distribution with a median of 7.4 days and width
-(quantified by the standard deviation of $\log_{10}(\bar{\tau})$) of 0.157.
+(quantified by the standard deviation of $\log_{10}(\bar{\tau})$) of 0.157
+(these two quantities are the ones we will infer using the hierarchical model).
 The response amplitudes $A$ and $C$ were set to 0.5 and 0 respectively, for
 all objects.
 
@@ -315,7 +317,7 @@ See Figure~\ref{fig:data} for three illustrative data sets from the sample.
 
 \begin{figure}
 \begin{center}
-\includegraphics[scale=0.5]{Figures/data.eps}
+\includegraphics[scale=0.45]{Figures/data.eps}
 \caption{Three simulated data sets, out of a total of 100. It is difficult to
 infer the lag $\bar{\tau}$ for any of these objects (although there is some
 information available). See Figure~\ref{fig:example_posteriors} for the
@@ -351,7 +353,7 @@ while not strictly well defined, is roughly 0.25 dex.
 
 \begin{figure}
 \begin{center}
-\includegraphics[scale=0.4]{Figures/ccf.eps}
+\includegraphics[scale=0.35]{Figures/ccf.eps}
 \caption{The stacked cross-correlation function of the simulated data.
 A clear peak is seen around $\tau \approx 10$ days, but the stacked CCF has a
 large width. It is difficult to interpret the cause of this width, and to
@@ -380,9 +382,11 @@ result of fortuitous variability of the continuum.
 
 \begin{figure}
 \begin{center}
-\includegraphics[scale=0.5]{Figures/example_posteriors.eps}
+\includegraphics[scale=0.45]{Figures/example_posteriors.eps}
 \caption{Samples from the posterior distribution for $\log_{10}(\bar{\tau})$
-for three objects, each analysed separately with the single-object model. For
+for three objects whose data sets are shown in Figure~\ref{fig:data}.
+These posteriors were obtained by analysing each object separately with the
+single-object model. For
 the first object, there is a moderate ``detection'' of a lag at about 10 days
 (although there is a small second mode above 100 days, which can be understood
 by inspecting the data in Figure~\ref{fig:data}).
@@ -419,7 +423,7 @@ and is typical of the posterior distribution, as it should be.
 
 \begin{figure}
 \begin{center}
-\includegraphics[scale=0.5]{Figures/posterior.eps}
+\includegraphics[scale=0.45]{Figures/posterior.eps}
 \caption{The joint posterior distribution for $\mu$ and $\sigma$, hyperparameters
 describing the distribution of $\bar{\tau}$ values in the sample. The prior
 distribution was uniform over the area shown.
@@ -431,14 +435,16 @@ lag of 7.4 days.\label{fig:posterior}}
 
 The marginal posterior distribution for $\mu$ is shown in Figure~\ref{fig:posterior2}
 along with the posterior predictive distribution for the ``next'' $\bar{\tau}$ value. The inference about $\mu$ can be summarised as
-$\mu = 0.838 \pm 0.047$, and the prediction about $\log_{10}(\bar{\tau})$
+$\mu = 0.838 \pm 0.047$ (consistent with the known input value of
+$0.867 \approx \log_{10}(7.4)$),
+and the prediction about $\log_{10}(\bar{\tau})$
 may be summarised as $\log_{10}(\bar{\tau}) = 0.838 \pm 0.215$. The Bayesian
 approach has clearly separated the uncertainty about $\mu$ from the diversity of the
 sample, described by $\sigma$.
 
 \begin{figure}
 \begin{center}
-\includegraphics[scale=0.35]{Figures/posterior2.eps}
+\includegraphics[scale=0.3]{Figures/posterior2.eps}
 \caption{The marginal posterior distribution for $\mu$, the 
 hyperparameter describing the center of the distribution for
 $\log_{10}\left(\bar{\tau}\right)$, is plotted as the solid line.
