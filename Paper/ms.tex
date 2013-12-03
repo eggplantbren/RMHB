@@ -282,7 +282,19 @@ cross-correlation techniques and is similar to the approach used by
 
 \section{Demonstration on Simulated Data}\label{sec:data}
 To test our hierarchical model, and compare it to the stacked cross-correlation
-function, we simulated data from 100 AGN. The data for each object was
+function, we simulated data from a sample of 100 AGN. We assumed the
+continuum flux for each object fluctuates around a mean value $m = 50$ in
+arbitrary units. The variability timescales $L$ were simulated from a very
+broad log-uniform distribution (i.e. a uniform distribution for $\ln(L)$)
+with a lower limit of 100 days and an upper limit of $10,000$ days. The
+variability amplitudes $\beta$ were also simulated from a log-uniform
+distribution with lower limit of 0.2 flux units and an upper limit of 1 flux
+unit. This implies some objects are more variable than others, as is typical
+in reverberation mapping.
+
+
+
+The measured data for each of the 100 AGN was
 continuum flux measurements, once per day, for 100 days. The continuum fluxes
 for each object oscillate around a mean value of 50 in arbitrary units, and the
 standard deviation of the measurement noise is 1 (i.e. 2\%). The line data is measured on
